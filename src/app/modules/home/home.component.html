@@ -1,0 +1,34 @@
+<div class="main section">
+  <div class="content">
+    <div class="container">
+      <strong class="is-size-1">Pokerito</strong>
+      <p class="is-size-4">Simple planning poker games.</p>
+      <button class="button" (click)="isPopupVisible = true">
+        Start new game
+      </button>
+    </div>
+  </div>
+</div>
+<div class="modal" [class.is-active]="isPopupVisible">
+  <div class="modal-background"></div>
+  <div class="modal-content">
+    <div class="card">
+      <div class="card-content">
+        <div class="content">
+          <div class="field">
+            <label class="label">
+              Name
+            </label>
+            <div class="control">
+              <input class="input" type="text" placeholder="Bon Jovi">
+            </div>
+          </div>
+          <div class="field">
+            <button class="button is-primary" (click)="onStartGameClick()">Start</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button class="modal-close is-large" aria-label="close" (click)="isPopupVisible = false"></button>
+</div>

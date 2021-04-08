@@ -6,10 +6,12 @@ import { environment } from 'src/environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { WebsocketModule } from './websocket/websocket.module';
+import { PokerComponent } from './components/poker/poker.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    PokerComponent
   ],
   imports: [
     BrowserModule,

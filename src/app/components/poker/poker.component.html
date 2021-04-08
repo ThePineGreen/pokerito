@@ -1,0 +1,28 @@
+<div class="hero is-halfheight">
+  <div class="block">
+    <div class="columns players-cards">
+      <ng-container *ngFor="let player of players" class="block">
+        <div class="player-container column is-2 has-text-centered">
+          <div class="box player-card">
+            <span class="title player-card--value">{{player.card}}</span>
+          </div>
+          <span class="subtitle">{{player.name}}</span>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</div>
+<div class="column is-2 is-offset-5 block">
+  <button class="button is-info is-fullwidth">Show cards</button>
+</div>
+<div class="container">
+  <div class="columns has-text-centered is-size-4">
+    <ng-container *ngFor="let card of fibonacciCards">
+      <div class="column" (click)="onCardClick(card)">
+        <div class="box player-card" [class._selected]="card.isSelected">
+          <span class="player-card--value">{{card.value}}</span>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</div>

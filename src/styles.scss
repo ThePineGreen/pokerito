@@ -1,2 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
-@import "https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css"
+@import "https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css";
+
+body {
+  display: flex;
+  min-height: 100vh;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}

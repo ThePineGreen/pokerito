@@ -1,8 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
+//@import url('https://fonts.googleapis.com/css?family=Nunito:400,700');
 
-$info: peachpuff;
+$primary: peachpuff;
 
-@import "../node_modules/bulma/bulma";
+body, button, input, optgroup, select, textarea {
+  font-family: Nunito, sans-serif;
+}
 
 body {
   display: flex;

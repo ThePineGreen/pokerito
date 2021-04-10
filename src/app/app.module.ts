@@ -1,27 +1,27 @@
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
-import { environment } from 'src/environments/environment';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { WebsocketModule } from './websocket/websocket.module';
 import { PokerComponent } from './components/poker/poker.component';
+import {SocketService} from './service/socket.service';
+import {HomeComponent} from './components/home/home.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    PokerComponent
+    PokerComponent,
+    HomeComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    ReactiveFormsModule,
-    WebsocketModule.config({
-        url: environment.ws
-    })
+    ReactiveFormsModule
   ],
-  providers: [],
+  providers: [
+    SocketService,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

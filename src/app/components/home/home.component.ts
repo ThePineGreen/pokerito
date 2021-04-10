@@ -18,7 +18,7 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (localStorage.getItem('name')) {
+    if (sessionStorage.getItem('name')) {
       this.isPopupNeeded = false;
     }
     this.uiid = uuidv4();
@@ -26,14 +26,15 @@ export class HomeComponent implements OnInit {
 
   onStartGameWithNameClick(name: HTMLInputElement): void {
     const uiid: string = uuidv4();
-    localStorage.setItem('name', name.value);
+    sessionStorage.setItem('name', name.value);
     navigator.clipboard.writeText(window.location.href + '/poker/' + uiid)
       .then(() => this.router.navigate(['/poker', {id: uiid}], {relativeTo: this.route}));
   }
 
   onStartGameClick(): void {
     const uiid: string = uuidv4();
-    localStorage.getItem('name');
+
+    sessionStorage.getItem('name');
     navigator.clipboard.writeText(window.location.href + '/poker/' + uiid)
       .then(() => this.router.navigate(['/poker', {id: uiid}], {relativeTo: this.route}));
   }

@@ -19,6 +19,7 @@ export class PokerComponent implements OnInit {
   fibonacciNumbers: string[] = ['0', '1', '2', '3', '5', '13', '21', '34', '55', '89', '?'];
   users: Record<string, string>[];
   fibonacciCards: FibonacciCard[];
+  isNameExist = false;
   socket: Socket;
   roomId: string;
 
@@ -29,6 +30,7 @@ export class PokerComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.isNameExist = !!sessionStorage.getItem('name');
     this.roomId = this.route.snapshot.paramMap.get('id');
     this.socket = this.socketService.getSocket();
     this.socket.on('users', (users) => {
@@ -64,5 +66,10 @@ export class PokerComponent implements OnInit {
     this.fibonacciCards.forEach(card => card.isSelected = false);
     this.fibonacciCards.find(value => value.value === selectedCard.value).isSelected = true;
     this.socket.emit('select-card', selectedCard);
+  }
+
+  onContinueClick(nameInput: HTMLInputElement): void {
+    sessionStorage.setItem('name', nameInput.value);
+    this.isNameExist = true;
   }
 }

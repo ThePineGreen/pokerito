@@ -1,28 +1,48 @@
-<div class="hero is-halfheight">
-  <div class="block">
-    <div class="columns players-cards">
-      <ng-container *ngFor="let user of users" class="block">
-        <div class="player-container column is-2 has-text-centered">
-          <div class="box player-card">
-            <span class="title player-card--value">5</span>
+<ng-container *ngIf="isNameExist; else modal">
+  <div class="hero is-halfheight">
+    <div class="block">
+      <div class="columns players-cards">
+        <ng-container *ngFor="let user of users" class="block">
+          <div class="player-container column is-2 has-text-centered">
+            <div class="box player-card">
+              <span class="title player-card--value">5</span>
+            </div>
+            <span class="subtitle">{{user.username}}</span>
           </div>
-          <span class="subtitle">{{user.username}}</span>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+  <div class="column is-2 is-offset-5 block">
+    <button class="button is-dark is-fullwidth">Show cards</button>
+  </div>
+  <div class="container">
+    <div class="columns has-text-centered is-size-4">
+      <ng-container *ngFor="let card of fibonacciCards">
+        <div class="column" (click)="onCardClick(card)">
+          <div class="box player-card" [class._selected]="card.isSelected">
+            <span class="player-card--value">{{card.value}}</span>
+          </div>
         </div>
       </ng-container>
     </div>
   </div>
-</div>
-<div class="column is-2 is-offset-5 block">
-  <button class="button is-dark is-fullwidth">Show cards</button>
-</div>
-<div class="container">
-  <div class="columns has-text-centered is-size-4">
-    <ng-container *ngFor="let card of fibonacciCards">
-      <div class="column" (click)="onCardClick(card)">
-        <div class="box player-card" [class._selected]="card.isSelected">
-          <span class="player-card--value">{{card.value}}</span>
+
+</ng-container>
+
+<ng-template #modal>
+  <div class="modal" [class.is-active]=!isNameExist>
+    <div class="modal-background"></div>
+    <div class="modal-card">
+      <section class="modal-card-body">
+        <div class="field">
+          <label class="label">Name</label>
+          <div class="control">
+            <input #nameInput class="input" type="text" placeholder="Bon Jovi">
+          </div>
         </div>
-      </div>
-    </ng-container>
+        <button class="button is-dark" (click)="onContinueClick(nameInput)">Continue</button>
+      </section>
+    </div>
   </div>
-</div>
+</ng-template>

@@ -1,12 +1,12 @@
 <div class="hero is-halfheight">
   <div class="block">
     <div class="columns players-cards">
-      <ng-container *ngFor="let player of players" class="block">
+      <ng-container *ngFor="let user of users" class="block">
         <div class="player-container column is-2 has-text-centered">
           <div class="box player-card">
-            <span class="title player-card--value">{{player.card}}</span>
+            <span class="title player-card--value">5</span>
           </div>
-          <span class="subtitle">{{player.name}}</span>
+          <span class="subtitle">{{user.username}}</span>
         </div>
       </ng-container>
     </div>

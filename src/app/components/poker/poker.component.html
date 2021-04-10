@@ -1,3 +1,8 @@
+<div class="notification is-absolute" *ngIf="isNotificationShowed">
+  <button class="delete" (click)="isNotificationShowed = false"></button>
+  Link copied to clipboard!
+</div>
+
 <ng-container *ngIf="isNameExist; else modal">
   <div class="hero is-halfheight">
     <div class="block">

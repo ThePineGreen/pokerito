@@ -31,12 +31,4 @@ export class HomeComponent implements OnInit {
       .then(() => this.router.navigate(['/poker', {id: uiid}], {relativeTo: this.route}));
   }
 
-  onStartGameClick(): void {
-    const uiid: string = uuidv4();
-
-    sessionStorage.getItem('name');
-    navigator.clipboard.writeText(window.location.href + '/poker/' + uiid)
-      .then(() => this.router.navigate(['/poker', {id: uiid}], {relativeTo: this.route}));
-  }
-
 }

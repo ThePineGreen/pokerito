@@ -19,6 +19,7 @@ export class PokerComponent implements OnInit {
   fibonacciNumbers: string[] = ['0', '1', '2', '3', '5', '13', '21', '34', '55', '89', '?'];
   users: Record<string, string>[];
   fibonacciCards: FibonacciCard[];
+  isNotificationShowed = false;
   isNameExist = false;
   socket: Socket;
   roomId: string;
@@ -70,6 +71,9 @@ export class PokerComponent implements OnInit {
 
   onContinueClick(nameInput: HTMLInputElement): void {
     sessionStorage.setItem('name', nameInput.value);
-    this.isNameExist = true;
+    navigator.clipboard.writeText(window.location.href).then(() => {
+      this.isNameExist = true;
+      this.isNotificationShowed = true;
+    });
   }
 }

@@ -68,6 +68,12 @@ export class RoomComponent implements OnInit {
       this.isResultShown = true;
       this.result = result;
     });
+
+    this.socket.on('reset-room', () => {
+      this.isResultShown = false;
+      this.result = null;
+      this.fibonacciCards.forEach(card => card.isSelected = false);
+    });
   }
 
   private connectToSocket(name: string): void {
@@ -124,5 +130,9 @@ export class RoomComponent implements OnInit {
 
   onResultsButtonClick(): void {
     this.socket.emit('show-results');
+  }
+
+  onResetRoomClick(): void {
+    this.socket.emit('reset-room');
   }
 }

@@ -9,8 +9,8 @@
       <div class="columns players-cards">
         <ng-container *ngFor="let user of users" class="block">
           <div class="player-container column is-2 has-text-centered">
-            <div class="box player-card">
-              <span class="title player-card--value">5</span>
+            <div class="box player-card" [class._selected]="user.card">
+              <span class="title player-card--value"></span>
             </div>
             <span class="subtitle">{{user.username}}</span>
           </div>

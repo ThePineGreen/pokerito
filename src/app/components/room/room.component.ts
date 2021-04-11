@@ -21,6 +21,7 @@ export class RoomComponent implements OnInit {
   isNotificationShowed = false;
   isNameExist = false;
   sessionId: string;
+  userId: string;
   socket: Socket;
   roomId: string;
 
@@ -35,19 +36,29 @@ export class RoomComponent implements OnInit {
     this.socket = this.socketService.connectToSocket();
     this.isNameExist = !!sessionStorage.getItem('name');
     this.sessionId = sessionStorage.getItem('sessionId');
+    this.userId = sessionStorage.getItem('userId');
+    this.fibonacciCards = RoomComponent.generateFibonacciCards(this.fibonacciNumbers);
 
     this.socket.on('session', ({sessionId, userId}) => {
       this.socket.auth = {sessionId};
       sessionStorage.setItem('sessionId', sessionId);
-      sessionStorage.setItem('userID', userId);
+      sessionStorage.setItem('userId', userId);
     });
-
     if (this.sessionId) {
       this.socket.auth = {sessionId: this.sessionId};
       this.socket.connect();
       this.subscribeToUsers();
     }
-    this.fibonacciCards = RoomComponent.generateFibonacciCards(this.fibonacciNumbers);
+
+    this.socket.on('user-select-card', ({value, from}) => {
+      for (const user of this.users) {
+        if (user.userId === from) {
+          user.card = value;
+          user.isCardSelected = 'true';
+          break;
+        }
+      }
+    });
   }
 
   private connectToSocket(name: string): void {
@@ -62,7 +73,10 @@ export class RoomComponent implements OnInit {
   private subscribeToUsers(): void {
     this.socket.on('users', (users) => {
       users.forEach((user) => {
-        user.self = user.userId === this.socket.id;
+        user.self = user.userId === this.userId;
+        if (user.self) {
+          this.selectCardInHand( {value: user.card.value, isSelected: true});
+        }
       });
 
       this.users = users.sort((a, b) => {
@@ -81,9 +95,13 @@ export class RoomComponent implements OnInit {
   }
 
   onCardClick(selectedCard: FibonacciCard): void {
+    this.selectCardInHand(selectedCard);
+    this.socket.emit('user-select-card', selectedCard.value);
+  }
+
+  private selectCardInHand(selectedCard: FibonacciCard): void {
     this.fibonacciCards.forEach(card => card.isSelected = false);
     this.fibonacciCards.find(value => value.value === selectedCard.value).isSelected = true;
-    this.socket.emit('select-card', selectedCard);
   }
 
   onContinueClick(nameInput: HTMLInputElement): void {

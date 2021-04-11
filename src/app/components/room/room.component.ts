@@ -41,6 +41,8 @@ export class RoomComponent implements OnInit {
 
     this.socket.on('session', ({sessionId, userId}) => {
       this.socket.auth = {sessionId};
+      this.userId = userId;
+      this.sessionId = sessionId;
       sessionStorage.setItem('sessionId', sessionId);
       sessionStorage.setItem('userId', userId);
     });
@@ -74,8 +76,8 @@ export class RoomComponent implements OnInit {
     this.socket.on('users', (users) => {
       users.forEach((user) => {
         user.self = user.userId === this.userId;
-        if (user.self) {
-          this.selectCardInHand( {value: user.card.value, isSelected: true});
+        if (user.self && user.card) {
+          this.selectCardInHand({value: user.card.value, isSelected: true});
         }
       });
 

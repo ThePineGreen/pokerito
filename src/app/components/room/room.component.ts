@@ -19,6 +19,8 @@ export class RoomComponent implements OnInit {
   users: Record<string, string>[];
   fibonacciCards: FibonacciCard[];
   isNotificationShowed = false;
+  result: Record<string, any>;
+  isResultShown = false;
   isNameExist = false;
   sessionId: string;
   userId: string;
@@ -60,6 +62,11 @@ export class RoomComponent implements OnInit {
           break;
         }
       }
+    });
+
+    this.socket.on('show-results', result => {
+      this.isResultShown = true;
+      this.result = result;
     });
   }
 
@@ -113,5 +120,9 @@ export class RoomComponent implements OnInit {
       this.isNameExist = true;
       this.isNotificationShowed = true;
     });
+  }
+
+  onResultsButtonClick(): void {
+    this.socket.emit('show-results');
   }
 }

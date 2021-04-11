@@ -19,7 +19,7 @@
     </div>
   </div>
   <div class="column is-2 is-offset-5 block">
-    <button class="button is-dark is-fullwidth">Show cards</button>
+    <button class="button is-dark is-fullwidth" (click)="onResultsButtonClick()">Show cards</button>
   </div>
   <div class="container">
     <div class="columns has-text-centered is-size-4">
@@ -32,7 +32,7 @@
       </ng-container>
     </div>
   </div>
-
+  <ng-container *ngTemplateOutlet="results"></ng-container>
 </ng-container>
 
 <ng-template #modal>
@@ -47,6 +47,36 @@
           </div>
         </div>
         <button class="button is-dark" (click)="onContinueClick(nameInput)">Continue</button>
+      </section>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #results>
+  <div class="modal" *ngIf="isResultShown" [class.is-active]=isResultShown>
+    <div class="modal-background"></div>
+    <div class="modal-card">
+      <section class="modal-card-body has-text-centered flex-table">
+        <span class="subtitle block">Result: {{result.resultSumm}}</span>
+        <table class="table">
+          <tbody>
+          <tr>
+            <ng-container *ngFor="let user of result.users">
+              <td>
+                {{user.username}}
+              </td>
+            </ng-container>
+          </tr>
+          <tr>
+            <ng-container *ngFor="let user of result.users">
+              <td>
+                {{user.card ? user.card.value : '-'}}
+              </td>
+            </ng-container>
+          </tr>
+          </tbody>
+        </table>
+        <button class="button is-dark">Start new round</button>
       </section>
     </div>
   </div>

@@ -8,6 +8,11 @@
   right: 3rem;
 }
 
+.flex-table {
+  display: flex;
+  flex-direction: column;
+}
+
 .player-container {
   display: flex;
   flex-direction: column;

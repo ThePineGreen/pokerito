@@ -34,9 +34,18 @@ export class RoomComponent implements OnInit {
     this.roomId = this.route.snapshot.paramMap.get('id');
     this.socket = this.socketService.connectToSocket();
     this.isNameExist = !!sessionStorage.getItem('name');
+    this.sessionId = sessionStorage.getItem('sessionId');
 
-    if (sessionStorage.getItem('name')) {
-      this.connectToSocket(sessionStorage.getItem('name'));
+    this.socket.on('session', ({sessionId, userId}) => {
+      this.socket.auth = {sessionId};
+      sessionStorage.setItem('sessionId', sessionId);
+      sessionStorage.setItem('userID', userId);
+    });
+
+    if (this.sessionId) {
+      this.socket.auth = {sessionId: this.sessionId};
+      this.socket.connect();
+      this.subscribeToUsers();
     }
     this.fibonacciCards = RoomComponent.generateFibonacciCards(this.fibonacciNumbers);
   }

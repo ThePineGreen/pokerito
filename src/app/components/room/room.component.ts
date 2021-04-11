@@ -6,11 +6,11 @@ import {UserData} from '../../models/player.model';
 import {SocketService} from '../../service/socket.service';
 
 @Component({
-  selector: 'app-poker',
-  templateUrl: './poker.component.html',
-  styleUrls: ['./poker.component.scss']
+  selector: 'app-room',
+  templateUrl: './room.component.html',
+  styleUrls: ['./room.component.scss']
 })
-export class PokerComponent implements OnInit {
+export class RoomComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private socketService: SocketService) {
@@ -53,7 +53,7 @@ export class PokerComponent implements OnInit {
       });
     });
     this.socket.emit('connect-to-room', this.getPlayerData(this.roomId));
-    this.fibonacciCards = PokerComponent.generateFibonacciCards(this.fibonacciNumbers);
+    this.fibonacciCards = RoomComponent.generateFibonacciCards(this.fibonacciNumbers);
   }
 
   getPlayerData(roomId: string): UserData {

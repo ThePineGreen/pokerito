@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {FibonacciCard} from '../../models/fibonacciCard.model';
 import {ActivatedRoute} from '@angular/router';
 import {Socket} from 'socket.io-client';
-import {UserData} from '../../models/player.model';
 import {SocketService} from '../../service/socket.service';
 
 @Component({
@@ -21,6 +20,7 @@ export class RoomComponent implements OnInit {
   fibonacciCards: FibonacciCard[];
   isNotificationShowed = false;
   isNameExist = false;
+  sessionId: string;
   socket: Socket;
   roomId: string;
 
@@ -31,9 +31,26 @@ export class RoomComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.isNameExist = !!sessionStorage.getItem('name');
     this.roomId = this.route.snapshot.paramMap.get('id');
-    this.socket = this.socketService.getSocket();
+    this.socket = this.socketService.connectToSocket();
+    this.isNameExist = !!sessionStorage.getItem('name');
+
+    if (sessionStorage.getItem('name')) {
+      this.connectToSocket(sessionStorage.getItem('name'));
+    }
+    this.fibonacciCards = RoomComponent.generateFibonacciCards(this.fibonacciNumbers);
+  }
+
+  private connectToSocket(name: string): void {
+    this.socket.auth = {
+      username: name,
+      roomId: this.roomId
+    };
+    this.socket.connect();
+    this.subscribeToUsers();
+  }
+
+  private subscribeToUsers(): void {
     this.socket.on('users', (users) => {
       users.forEach((user) => {
         user.self = user.userId === this.socket.id;
@@ -52,15 +69,6 @@ export class RoomComponent implements OnInit {
         return a.username > b.username ? 1 : 0;
       });
     });
-    this.socket.emit('connect-to-room', this.getPlayerData(this.roomId));
-    this.fibonacciCards = RoomComponent.generateFibonacciCards(this.fibonacciNumbers);
-  }
-
-  getPlayerData(roomId: string): UserData {
-    return {
-      username: 'Tom',
-      roomId,
-    };
   }
 
   onCardClick(selectedCard: FibonacciCard): void {
@@ -72,6 +80,7 @@ export class RoomComponent implements OnInit {
   onContinueClick(nameInput: HTMLInputElement): void {
     sessionStorage.setItem('name', nameInput.value);
     navigator.clipboard.writeText(window.location.href).then(() => {
+      this.connectToSocket(nameInput.value);
       this.isNameExist = true;
       this.isNotificationShowed = true;
     });

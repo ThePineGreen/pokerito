@@ -5,30 +5,21 @@ import {Injectable} from '@angular/core';
 @Injectable()
 export class SocketService {
 
-  /** @internal */
-  private socket: Socket;
+  socket: Socket;
 
-  connectToSocket(): void {
+  connectToSocket(): Socket {
     this.socket = io(environment.socket,
       {
         autoConnect: false
       }
     );
-    this.socket.open();
     this.socket.onAny((event, ...args) => {
       console.log(event, args);
     });
+    return this.socket;
   }
 
   getSocket(): Socket {
     return this.socket;
-  }
-
-  subscribeTo(event: string, func: (args: any) => void): void {
-    this.socket.on(event, func);
-  }
-
-  emit(event: string, data: any): void {
-    this.socket.emit(event, data);
   }
 }

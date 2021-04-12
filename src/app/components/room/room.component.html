@@ -1,4 +1,4 @@
-<div class="notification is-notification" *ngIf="isNotificationShowed">
+<div class="notification is-notification" *ngIf="isNotificationShowed && isOwner">
   <button class="delete" (click)="isNotificationShowed = false"></button>
   Link copied to clipboard!
 </div>
@@ -19,11 +19,11 @@
     </div>
   </div>
   <div class="column is-2 is-offset-5 block">
-    <button class="button is-dark is-fullwidth" (click)="onResultsButtonClick()">Show cards</button>
+    <button class="button is-dark is-fullwidth" *ngIf="isOwner" (click)="onResultsButtonClick()">Show cards</button>
   </div>
   <div class="container">
     <div class="columns has-text-centered is-size-4">
-      <ng-container *ngFor="let card of fibonacciCards">
+      <ng-container *ngFor="let card of cardDeck">
         <div class="column" (click)="onCardClick(card)">
           <div class="box player-card" [class._selected]="card.isSelected">
             <span class="player-card--value">{{card.value}}</span>
@@ -76,7 +76,7 @@
           </tr>
           </tbody>
         </table>
-        <button class="button is-dark" (click)="onResetRoomClick()">Start new round</button>
+        <button class="button is-dark" *ngIf="isOwner" (click)="onResetRoomClick()">Start new round</button>
       </section>
     </div>
   </div>

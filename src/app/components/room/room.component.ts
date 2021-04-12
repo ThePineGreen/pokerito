@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FibonacciCard} from '../../models/fibonacciCard.model';
+import {PokerCard} from '../../models/PokerCard.model';
 import {ActivatedRoute} from '@angular/router';
 import {Socket} from 'socket.io-client';
 import {SocketService} from '../../service/socket.service';
@@ -15,19 +15,20 @@ export class RoomComponent implements OnInit {
               private socketService: SocketService) {
   }
 
-  fibonacciNumbers: string[] = ['0', '1', '2', '3', '5', '13', '21', '34', '55', '89', '?'];
+  cardNumbers: string[] = ['0', '0.5', '1', '2', '3', '5', '8', '13', '20', '40', '100', '?'];
   users: Record<string, string>[];
-  fibonacciCards: FibonacciCard[];
   isNotificationShowed = false;
   result: Record<string, any>;
+  cardDeck: PokerCard[];
   isResultShown = false;
   isNameExist = false;
   sessionId: string;
+  isOwner: boolean;
   userId: string;
   socket: Socket;
   roomId: string;
 
-  private static generateFibonacciCards(numbers: string[]): FibonacciCard[] {
+  private static generateCardDeck(numbers: string[]): PokerCard[] {
     return numbers.map(item => {
       return {value: item, isSelected: false};
     });
@@ -39,7 +40,7 @@ export class RoomComponent implements OnInit {
     this.isNameExist = !!sessionStorage.getItem('name');
     this.sessionId = sessionStorage.getItem('sessionId');
     this.userId = sessionStorage.getItem('userId');
-    this.fibonacciCards = RoomComponent.generateFibonacciCards(this.fibonacciNumbers);
+    this.cardDeck = RoomComponent.generateCardDeck(this.cardNumbers);
 
     this.socket.on('session', ({sessionId, userId}) => {
       this.socket.auth = {sessionId};
@@ -72,7 +73,7 @@ export class RoomComponent implements OnInit {
     this.socket.on('reset-room', () => {
       this.isResultShown = false;
       this.result = null;
-      this.fibonacciCards.forEach(card => card.isSelected = false);
+      this.cardDeck.forEach(card => card.isSelected = false);
     });
   }
 
@@ -89,8 +90,16 @@ export class RoomComponent implements OnInit {
     this.socket.on('users', (users) => {
       users.forEach((user) => {
         user.self = user.userId === this.userId;
-        if (user.self && user.card) {
-          this.selectCardInHand({value: user.card.value, isSelected: true});
+        if (user.self) {
+          this.isOwner = user.owner;
+          navigator.clipboard.writeText(window.location.href).then(() => {
+            this.isNameExist = true;
+            this.isNotificationShowed = true;
+          });
+
+          if (user.card) {
+            this.selectCardInHand({value: user.card.value, isSelected: true});
+          }
         }
       });
 
@@ -109,23 +118,19 @@ export class RoomComponent implements OnInit {
     });
   }
 
-  onCardClick(selectedCard: FibonacciCard): void {
+  onCardClick(selectedCard: PokerCard): void {
     this.selectCardInHand(selectedCard);
     this.socket.emit('user-select-card', selectedCard.value);
   }
 
-  private selectCardInHand(selectedCard: FibonacciCard): void {
-    this.fibonacciCards.forEach(card => card.isSelected = false);
-    this.fibonacciCards.find(value => value.value === selectedCard.value).isSelected = true;
+  private selectCardInHand(selectedCard: PokerCard): void {
+    this.cardDeck.forEach(card => card.isSelected = false);
+    this.cardDeck.find(value => value.value === selectedCard.value).isSelected = true;
   }
 
   onContinueClick(nameInput: HTMLInputElement): void {
     sessionStorage.setItem('name', nameInput.value);
-    navigator.clipboard.writeText(window.location.href).then(() => {
-      this.connectToSocket(nameInput.value);
-      this.isNameExist = true;
-      this.isNotificationShowed = true;
-    });
+    this.connectToSocket(nameInput.value);
   }
 
   onResultsButtonClick(): void {

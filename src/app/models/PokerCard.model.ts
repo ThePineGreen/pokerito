@@ -1,4 +1,4 @@
-export type FibonacciCard = {
+export type PokerCard = {
   value: string;
   isSelected: boolean;
 };

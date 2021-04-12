@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {PokerCard} from '../../models/PokerCard.model';
 import {ActivatedRoute} from '@angular/router';
 import {Socket} from 'socket.io-client';
@@ -128,9 +128,18 @@ export class RoomComponent implements OnInit {
   }
 
   onContinueClick(nameInput: HTMLInputElement): void {
-    sessionStorage.setItem('name', nameInput.value);
+    const placeholderNames: string[] = [
+      'Han Solo',
+      'Obi-Wan Kenobi',
+      'Count Dooku',
+      'R2-D2',
+      'C-3PO',
+      'Luke Skywalker',
+    ];
+    const name = nameInput.value ? nameInput.value : placeholderNames[Math.floor(Math.random() * 6)];
+    sessionStorage.setItem('name', name);
     this.isNotificationShowed = true;
-    this.connectToSocket(nameInput.value);
+    this.connectToSocket(name);
   }
 
   onResultsButtonClick(): void {

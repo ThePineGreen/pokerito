@@ -43,10 +43,12 @@
         <div class="field">
           <label class="label">Name</label>
           <div class="control">
-            <input #nameInput class="input" type="text" placeholder="Bon Jovi">
+            <input #nameInput class="input" (keyup.enter)="onContinueClick(nameInput)" type="text" placeholder="Bon Jovi">
           </div>
         </div>
-        <button class="button is-dark" (click)="onContinueClick(nameInput)">Continue</button>
+        <button class="button is-dark" (click)="onContinueClick(nameInput)">
+          Continue
+        </button>
       </section>
     </div>
   </div>

@@ -94,7 +94,6 @@ export class RoomComponent implements OnInit {
           this.isOwner = user.owner;
           navigator.clipboard.writeText(window.location.href).then(() => {
             this.isNameExist = true;
-            this.isNotificationShowed = true;
           });
 
           if (user.card) {
@@ -130,6 +129,7 @@ export class RoomComponent implements OnInit {
 
   onContinueClick(nameInput: HTMLInputElement): void {
     sessionStorage.setItem('name', nameInput.value);
+    this.isNotificationShowed = true;
     this.connectToSocket(nameInput.value);
   }
 

@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {PokerCard} from '../../models/PokerCard.model';
 import {ActivatedRoute} from '@angular/router';
 import {Socket} from 'socket.io-client';
@@ -32,6 +32,15 @@ export class RoomComponent implements OnInit {
     return numbers.map(item => {
       return {value: item, isSelected: false};
     });
+  }
+
+  private static copyUrlToClipboard(): void {
+    const dummy = document.createElement('input');
+    document.body.appendChild(dummy);
+    dummy.value = window.location.href;
+    dummy.select();
+    document.execCommand('copy');
+    document.body.removeChild(dummy);
   }
 
   ngOnInit(): void {
@@ -92,9 +101,8 @@ export class RoomComponent implements OnInit {
         user.self = user.userId === this.userId;
         if (user.self) {
           this.isOwner = user.owner;
-          navigator.clipboard.writeText(window.location.href).then(() => {
-            this.isNameExist = true;
-          });
+          RoomComponent.copyUrlToClipboard();
+          this.isNameExist = true;
 
           if (user.card) {
             this.selectCardInHand({value: user.card.value, isSelected: true});

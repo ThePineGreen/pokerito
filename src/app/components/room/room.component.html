@@ -14,13 +14,13 @@
       </div>
     </div>
     <div class="container">
-      <div class="col-2 offset-5">
-        <button class="btn btn-dark w-100" (click)="onResultsButtonClick()">Show cards</button>
+      <div class="col-4 col-lg-2 offset-lg-5 offset-4">
+        <button class="btn btn-dark w-100" [class.d-none]="isResultShown" (click)="onResultsButtonClick()">Show cards</button>
       </div>
       <div class="row my-5">
         <ng-container *ngFor="let card of cardDeck">
-          <div class="col" (click)="onCardClick(card)">
-            <div class="player-card" [class._selected]="card.isSelected">
+          <div class="col d-flex justify-content-center pb-3 pb-lg-0" (click)="onCardClick(card)">
+            <div class="player-card mb-sm-3" [class._selected]="card.isSelected">
               <span class="player-card--value h4">{{card.value}}</span>
             </div>
           </div>
@@ -48,7 +48,7 @@
 </ng-template>
 
 <ng-template #results>
-  <div class="results offset-2 col-8 col-sm-12 offset-sm-0 mb-3 position-absolute bottom-0" [class._show]=isResultShown>
+  <div class="results offset-lg-2 col-12 col-lg-8 offset-0 mb-3 position-absolute bottom-0" [class._show]=isResultShown>
     <div class="row text-center pb-3">
       <span class="lead">Result: {{coefficientEstimate ? coefficientEstimate : result?.resultSumm}}</span>
       <ng-container *ngIf="result?.resultSumm">

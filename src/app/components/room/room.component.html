@@ -1,85 +1,86 @@
-<div class="notification is-notification" *ngIf="isNotificationShowed && isOwner">
-  <button class="delete" (click)="isNotificationShowed = false"></button>
-  Link copied to clipboard!
-</div>
-
-<ng-container *ngIf="isNameExist; else modal">
-  <div class="hero is-halfheight">
-    <div class="block">
-      <div class="columns players-cards">
-        <ng-container *ngFor="let user of users" class="block">
-          <div *ngIf="user.connected" class="player-container column is-2 has-text-centered">
-            <div class="box player-card" [class._selected]="user.card">
-              <span class="title player-card--value"></span>
+<ng-container *ngIf="isNameExist; else nameTemplate">
+  <div class="min-vh-100 d-flex justify-content-center flex-column">
+    <div class="spacer"></div>
+    <div class="container my-auto h-100">
+      <div class="row">
+        <ng-container *ngFor="let user of users">
+          <div *ngIf="user.connected" class="player-container col text-center">
+            <div class="player-card mb-3" [class._selected]="user.card">
+              <span class="lead player-card--value"></span>
             </div>
-            <span class="subtitle">{{user.username}}</span>
+            <span class="lead">{{user.username}}</span>
           </div>
         </ng-container>
       </div>
     </div>
-  </div>
-  <div class="column is-2 is-offset-5 block">
-    <button class="button is-dark is-fullwidth" *ngIf="isOwner" (click)="onResultsButtonClick()">Show cards</button>
-  </div>
-  <div class="container">
-    <div class="columns has-text-centered is-size-4">
-      <ng-container *ngFor="let card of cardDeck">
-        <div class="column" (click)="onCardClick(card)">
-          <div class="box player-card" [class._selected]="card.isSelected">
-            <span class="player-card--value">{{card.value}}</span>
+    <div class="container">
+      <div class="col-2 offset-5">
+        <button class="btn btn-dark w-100" (click)="onResultsButtonClick()">Show cards</button>
+      </div>
+      <div class="row my-5">
+        <ng-container *ngFor="let card of cardDeck">
+          <div class="col" (click)="onCardClick(card)">
+            <div class="player-card" [class._selected]="card.isSelected">
+              <span class="player-card--value h4">{{card.value}}</span>
+            </div>
           </div>
-        </div>
-      </ng-container>
+        </ng-container>
+        <div class="spacer"></div>
+      </div>
     </div>
   </div>
   <ng-container *ngTemplateOutlet="results"></ng-container>
 </ng-container>
 
-<ng-template #modal>
-  <div class="modal" [class.is-active]=!isNameExist>
-    <div class="modal-background"></div>
-    <div class="modal-card">
-      <section class="modal-card-body">
-        <div class="field">
-          <label class="label">Name</label>
-          <div class="control">
-            <input #nameInput class="input" (keyup.enter)="onContinueClick(nameInput)" type="text" placeholder="Bon Jovi">
-          </div>
+<ng-template #nameTemplate>
+  <div class="container">
+    <div class="d-flex flex-column min-vh-100 justify-content-center align-content-center">
+      <div class="row">
+        <div class="col-6 offset-3">
+          <label class="form-label">Name</label>
+          <input #nameInput class="form-control mb-3" (keyup.enter)="onContinueClick(nameInput)" type="text"
+                 placeholder="Bon Jovi">
+          <button type="button" (click)="onContinueClick(nameInput)" class="btn btn-dark">Continue</button>
         </div>
-        <button class="button is-dark" (click)="onContinueClick(nameInput)">
-          Continue
-        </button>
-      </section>
+      </div>
     </div>
   </div>
 </ng-template>
 
 <ng-template #results>
-  <div class="modal" *ngIf="isResultShown" [class.is-active]=isResultShown>
-    <div class="modal-background"></div>
-    <div class="modal-card">
-      <section class="modal-card-body has-text-centered flex-table">
-        <span class="subtitle block">Result: {{result.resultSumm}}</span>
-        <table class="table">
+  <div class="results offset-2 col-8 col-sm-12 offset-sm-0 mb-3 position-absolute bottom-0" [class._show]=isResultShown>
+    <div class="row text-center pb-3">
+      <span class="lead">Result: {{coefficientEstimate ? coefficientEstimate : result?.resultSumm}}</span>
+      <ng-container *ngIf="result?.resultSumm">
+        <span>Show estimate with coefficient</span>
+        <div class="d-flex justify-content-center">
+          <a class="link-primary px-1" (click)="showCoefficientEstimate(1.5)">Frontend</a>
+          <a class="link-primary px-1" (click)="showCoefficientEstimate(1.3)">Backend</a>
+        </div>
+      </ng-container>
+    </div>
+    <div class="row">
+      <div class="col-4 offset-4 align-content-center d-flex flex-column text-center border-top border-secondary">
+        <table class="table table-borderless pb-2">
           <tbody>
           <tr>
-            <ng-container *ngFor="let user of result.users">
+            <ng-container *ngFor="let user of result?.users">
               <td>
                 {{user.username}}
               </td>
             </ng-container>
           </tr>
           <tr>
-            <ng-container *ngFor="let user of result.users">
+            <ng-container *ngFor="let user of result?.users">
               <td>
-                {{user.card ? user.card.value : '-'}}
+                {{user?.card ? user.card.value : '-'}}
               </td>
             </ng-container>
           </tr>
           </tbody>
         </table>
-        <button class="button is-dark" *ngIf="isOwner" (click)="onResetRoomClick()">Start new round</button>
-      </section>
+        <button class="btn btn-dark" *ngIf="isOwner" (click)="onResetRoomClick()">Start new round</button>
+      </div>
     </div>
   </div>
 </ng-template>

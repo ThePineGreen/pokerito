@@ -23,11 +23,25 @@
   width: 5rem;
   height: 7rem;
   display: flex;
-  box-shadow: 0 0 0 0.125em rgb(54 54 54 / 25%);
+  box-shadow: 0 0 0 0.185em rgb(54 54 54 / 25%);
+  border-radius: 6px;
 
   &--value {
     align-self: center;
     margin: 0 auto;
+  }
+}
+
+.results {
+  height: 0;
+  visibility: hidden;
+  background-color: white;
+  border-radius: 8px;
+  transition: all .5s cubic-bezier(0, 1, 0.5, 1);
+
+  &._show {
+    height: 45%;
+    visibility: visible;
   }
 }
 

@@ -19,6 +19,7 @@ export class RoomComponent implements OnInit {
   users: Record<string, string>[];
   isNotificationShowed = false;
   result: Record<string, any>;
+  coefficientEstimate: number;
   cardDeck: PokerCard[];
   isResultShown = false;
   isNameExist = false;
@@ -81,6 +82,7 @@ export class RoomComponent implements OnInit {
 
     this.socket.on('reset-room', () => {
       this.isResultShown = false;
+      this.coefficientEstimate = null;
       this.result = null;
       this.cardDeck.forEach(card => card.isSelected = false);
     });
@@ -156,5 +158,9 @@ export class RoomComponent implements OnInit {
 
   onResetRoomClick(): void {
     this.socket.emit('reset-room');
+  }
+
+  showCoefficientEstimate(coefficient: number): void {
+    this.coefficientEstimate = parseFloat((this.result.resultSumm * coefficient).toFixed(1));
   }
 }

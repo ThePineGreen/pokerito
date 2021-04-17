@@ -2,7 +2,7 @@
   <div class="min-vh-100 d-flex justify-content-center flex-column">
     <div class="spacer"></div>
     <div class="container my-auto h-100">
-      <div class="row">
+      <div class="row my-2">
         <ng-container *ngFor="let user of users">
           <div *ngIf="user.connected" class="player-container col text-center">
             <div class="player-card mb-3" [class._selected]="user.card">
@@ -14,7 +14,7 @@
       </div>
     </div>
     <div class="container">
-      <div class="col-4 col-lg-2 offset-lg-5 offset-4">
+      <div class="col-lg-2 offset-lg-5 col-md-4 offset-md-4 offset-3 col-6">
         <button class="btn btn-dark w-100" [class.d-none]="isResultShown" (click)="onResultsButtonClick()">Show cards</button>
       </div>
       <div class="row my-5">

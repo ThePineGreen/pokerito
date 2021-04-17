@@ -1,6 +1,6 @@
 <ng-container *ngIf="isNameExist; else nameTemplate">
   <div class="min-vh-100 d-flex justify-content-center flex-column">
-    <div class="spacer"></div>
+<!--    <div class="spacer"></div>-->
     <div class="container my-auto h-100">
       <div class="row my-2">
         <ng-container *ngFor="let user of users">
@@ -15,9 +15,14 @@
     </div>
     <div class="container">
       <div class="col-lg-2 offset-lg-5 col-md-4 offset-md-4 offset-3 col-6">
-        <button class="btn btn-dark w-100" [class.d-none]="isResultShown" (click)="onResultsButtonClick()">Show cards</button>
+        <button class="btn btn-dark w-100"
+                [class.d-none]="isResultShown"
+                *ngIf="isOwner"
+                (click)="onResultsButtonClick()"
+        >Show cards
+        </button>
       </div>
-      <div class="row my-5">
+      <div class="row my-5 row-cols-md-4 row-cols-4 row-cols-lg-6 row-cols-xxl-auto">
         <ng-container *ngFor="let card of cardDeck">
           <div class="col d-flex justify-content-center pb-3 pb-lg-0" (click)="onCardClick(card)">
             <div class="player-card mb-sm-3" [class._selected]="card.isSelected">
@@ -25,7 +30,7 @@
             </div>
           </div>
         </ng-container>
-        <div class="spacer"></div>
+<!--        <div class="spacer"></div>-->
       </div>
     </div>
   </div>

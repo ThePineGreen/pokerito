@@ -30,6 +30,11 @@
     align-self: center;
     margin: 0 auto;
   }
+
+  @media(max-width: 991px) {
+    width: 3rem;
+    height: 5rem;
+  }
 }
 
 .results {

@@ -54,4 +54,9 @@
   background-color: hsl(0, 0%, 21%);
   box-shadow: 0 0 0 0.125em rgb(54 54 54 / 25%);
   color: white;
+
+  &__player {
+    background-image: url("../../../assets/card-back.png");
+    background-size: 100% 98%;
+  }
 }

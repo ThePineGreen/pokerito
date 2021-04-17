@@ -5,7 +5,7 @@
       <div class="row my-2 row-cols-auto justify-content-center">
         <ng-container *ngFor="let user of users">
           <div *ngIf="user.connected" class="player-container col-2 text-center pb-3">
-            <div class="player-card mb-3" [class._selected]="user.card">
+            <div class="player-card mb-3" [class._selected__player]="user.card">
               <span class="lead player-card--value"></span>
             </div>
             <span class="lead">{{user.username}}</span>

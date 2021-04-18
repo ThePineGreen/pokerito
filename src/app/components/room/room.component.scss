@@ -35,6 +35,10 @@
     width: 3rem;
     height: 5rem;
   }
+
+  &._selectable {
+    cursor: pointer;
+  }
 }
 
 .results {
@@ -42,7 +46,7 @@
   visibility: hidden;
   background-color: white;
   border-radius: 8px;
-  transition: all .5s cubic-bezier(0, 1, 0.5, 1);
+  transition: all .2s cubic-bezier(0, 1, 0.5, 1);
 
   &._show {
     height: 45%;

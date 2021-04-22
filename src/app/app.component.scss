@@ -1,3 +1,13 @@
+@import "../assets/styles/variables";
+
 .main {
   flex: 1;
+}
+
+.navbar-color {
+  background-color: $charcoal;
+}
+
+.navbar-icon {
+  fill: white;
 }

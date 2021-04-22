@@ -1,0 +1,29 @@
+@import "variables";
+
+a {
+  color: $hookers-green;
+}
+
+.btn-dark-sea-green {
+  background-color: $dark-sea-green;
+  color: white;
+  box-shadow: 0 4px 10px $ash-gray;
+}
+
+.text-charcoal {
+  color: $charcoal;
+}
+
+.form-control-input {
+  color: $charcoal;
+  background-color: $ash-gray;
+
+  &::placeholder {
+    color: $fade-charcoal;
+  }
+
+  &:focus {
+    border-color: $dark-sea-green;
+    box-shadow: 0 0 0 0.25rem $fade-hookers-green;
+  }
+}

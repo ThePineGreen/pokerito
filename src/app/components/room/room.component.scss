@@ -38,11 +38,16 @@
   &--value {
     align-self: center;
     margin: 0 auto;
+    font-size: 2rem;
   }
 
   @media(max-width: 991px) {
     width: 3rem;
     height: 5rem;
+
+    &--value {
+      font-size: 1.25rem;
+    }
   }
 
   &._selectable {
@@ -90,11 +95,4 @@
   &__player {
     background-image: url("../../../assets/svg/back.svg");
   }
-}
-
-.total-value {
-  background: $hookers-green;
-  color: white;
-  border-radius: 4px;
-  padding: 0 0.5rem;
 }

@@ -1,9 +1,12 @@
 
 $charcoal: #2F3E46;
 $dark-slate-gray: #354F52;
+$cambridge-blue: #93B499;
 $hookers-green: #52796F;
 $dark-sea-green: #84A98C;
 $ash-gray: #CAD2C5;
+
+$charcoal-light: lighten($charcoal, 20%);
 
 $fade-ash: rgba($ash-gray, .25);
 $fade-charcoal: rgba($charcoal, .25);

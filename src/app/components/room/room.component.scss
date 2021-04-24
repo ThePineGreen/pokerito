@@ -1,11 +1,11 @@
 @import "../../../assets/styles/common";
 
-.players-cards {
-  justify-content: center;
+.bg-opacity-ash {
+  background-color: $fade-ash;
 }
 
-.main-container {
-  min-height: calc(100vh - 72px);
+.max-height {
+  min-height: calc(100vh - 56px);
 }
 
 .is-notification {
@@ -14,23 +14,26 @@
   right: 3rem;
 }
 
-.flex-table {
-  display: flex;
-  flex-direction: column;
+.her {
+  max-height: 24rem;
+  transition: max-height .4s ease-in;
+  &._results {
+    max-height: 12rem;
+  }
 }
 
-.player-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.player-card--container {
+  width: 6rem;
+  height: 10rem;
 }
 
 .player-card {
   width: 5rem;
-  height: 7rem;
+  height: 7.45rem;
   display: flex;
-  box-shadow: 0 0 0 0.185em rgb(54 54 54 / 25%);
-  border-radius: 6px;
+  border-radius: 4px;
+  border: 1px solid $ash-gray;
+  color: $hookers-green;
 
   &--value {
     align-self: center;
@@ -44,29 +47,52 @@
 
   &._selectable {
     cursor: pointer;
+
+    @media(max-width: 1200px) {
+      width: 3rem;
+      height: 5rem;
+    }
   }
 }
 
-.results {
-  height: 0;
-  visibility: hidden;
-  background-color: white;
-  border-radius: 8px;
-  transition: all .2s cubic-bezier(0, 1, 0.5, 1);
+.player-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 14px;
+  line-height: 16px;
+}
 
-  &._show {
-    height: 45%;
-    visibility: visible;
+.result {
+  &-container {
+    flex: 0;
+    transition: all .3s ease-in;
+
+    &._show {
+      flex: 1;
+    }
+  }
+  &-data {
+    opacity: 0;
+    display: none;
+    &._show {
+      opacity: 1;
+      display: block;
+    }
   }
 }
 
 ._selected {
-  background-color: hsl(0, 0%, 21%);
-  box-shadow: 0 0 0 0.125em rgb(54 54 54 / 25%);
+  background-color: $dark-sea-green;
   color: white;
 
   &__player {
-    background-image: url("../../../assets/card-back.png");
-    background-size: 100% 98%;
+    background-image: url("../../../assets/svg/back.svg");
   }
+}
+
+.total-value {
+  background: $hookers-green;
+  color: white;
+  border-radius: 4px;
+  padding: 0 0.5rem;
 }

@@ -19,11 +19,19 @@ a {
   background-color: $ash-gray;
 
   &::placeholder {
-    color: $fade-charcoal;
+    color: $charcoal-light;
   }
 
   &:focus {
     border-color: $dark-sea-green;
     box-shadow: 0 0 0 0.25rem $fade-hookers-green;
   }
+}
+
+.flex-auto {
+  flex: 1 1 auto;
+}
+
+.flex-none {
+  flex: none;
 }

@@ -13,8 +13,8 @@ import {slideInAnimation, slideInCards, slideOutAnimation, slideOutCards} from '
     styleUrls: ['./room.component.scss'],
     animations: [
         trigger('groupTickets', [
-            transition(':enter', [useAnimation(slideInAnimation)]),
-            transition(':leave', [useAnimation(slideOutAnimation)]),
+            transition(':enter', [useAnimation(slideInCards)]),
+            transition(':leave', [useAnimation(slideOutCards)]),
         ]),
         trigger('hideCards', [
             transition(':enter', [useAnimation(slideInCards)]),

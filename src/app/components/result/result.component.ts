@@ -7,11 +7,20 @@ import {Component, Input, OnInit} from '@angular/core';
 })
 export class ResultComponent implements OnInit {
 
-  constructor() { }
-
+  @Input() estimate: number;
   @Input() isResultShown: boolean;
+  changedResult: number;
 
   ngOnInit(): void {
+    this.resetCoefficient();
+  }
+
+  showCoefficientEstimate(coefficient: number): void {
+    this.changedResult = parseFloat((this.estimate * coefficient).toFixed(1));
+  }
+
+  resetCoefficient(): void {
+    this.changedResult = this.estimate;
   }
 
 }

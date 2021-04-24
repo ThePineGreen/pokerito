@@ -173,8 +173,4 @@ export class RoomComponent implements OnInit {
     onResetRoomClick(): void {
         this.socket.emit('reset-room');
     }
-
-    showCoefficientEstimate(coefficient: number): void {
-        this.coefficientEstimate = parseFloat((this.result.resultSumm * coefficient).toFixed(1));
-    }
 }

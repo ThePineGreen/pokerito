@@ -7,19 +7,18 @@
   </div>
   <div class="d-flex flex-row align-items-center mb-3">
     <div class="me-3 fs-3">Total</div>
-<!--    <div class="fs-4 total-value">{{coefficientEstimate ? coefficientEstimate : result?.resultSumm}}</div>-->
-    <div class="fs-4 total-value">5.6</div>
+    <div class="fs-4 total-value">{{changedResult}}</div>
   </div>
   <div class="border-bottom w-25 border-secondary mb-3"></div>
   <div class="fs-3 mb-3">Coefficient</div>
   <div class="btn-group mb-3" role="group">
     <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
-    <label class="btn btn-outline-secondary" for="btnradio1">None</label>
+    <label class="btn btn-outline-secondary" (click)="resetCoefficient()" for="btnradio1">None</label>
 
     <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
-    <label class="btn btn-outline-secondary" for="btnradio2">x1.5</label>
+    <label class="btn btn-outline-secondary" (click)="showCoefficientEstimate(1.5)" for="btnradio2">x1.5</label>
 
     <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
-    <label class="btn btn-outline-secondary" for="btnradio3">x1.3</label>
+    <label class="btn btn-outline-secondary" (click)="showCoefficientEstimate(1.3)" for="btnradio3">x1.3</label>
   </div>
 </div>

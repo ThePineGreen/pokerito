@@ -34,14 +34,10 @@
         </div>
       </div>
     </div>
-    <div class="bg-opacity-ash result-container"
+    <div class="bottom-panel"
          [class._show]="isResultShown"
     >
       <div class="container d-flex flex-column align-items-center">
-        <app-result *ngIf="isResultShown"
-                    @groupTickets
-                    [isResultShown]="isResultShown"
-        ></app-result>
         <div class="row py-5 w-100" *ngIf="!isResultShown" @hideCards>
           <div class="col-12 d-flex flex-row justify-content-between">
             <ng-container *ngFor="let card of cardDeck">
@@ -51,6 +47,12 @@
             </ng-container>
           </div>
         </div>
+      </div>
+      <div class="container d-flex flex-column align-items-center">
+        <app-result *ngIf="isResultShown"
+                    @groupTickets
+                    [isResultShown]="isResultShown"
+        ></app-result>
       </div>
     </div>
   </div>
@@ -62,47 +64,8 @@
       <div class="col-6 offset-3">
         <label class="form-label text-charcoal">Name</label>
         <input #nameInput class="form-control form-control-input mb-3" (keyup.enter)="onContinueClick(nameInput)"
-               type="text"
-               placeholder="Bon Jovi">
+               type="text" placeholder="Bon Jovi">
         <button type="button" (click)="onContinueClick(nameInput)" class="btn btn-dark-sea-green">Continue</button>
-      </div>
-    </div>
-  </div>
-</ng-template>
-
-<ng-template #results>
-  <div class="result-container col-12 offset-0 mb-3 position-fixed bottom-0 px-5"
-       [class._show]=isResultShown>
-    <div class="row text-center pb-3">
-      <span class="lead">Result: {{coefficientEstimate ? coefficientEstimate : result?.resultSumm}}</span>
-      <ng-container *ngIf="result?.resultSumm">
-        <span>Show estimate with coefficient</span>
-        <div class="d-flex justify-content-center">
-          <a class="link-primary px-1" (click)="showCoefficientEstimate(1.5)">Frontend</a>
-          <a class="link-primary px-1" (click)="showCoefficientEstimate(1.3)">Backend</a>
-        </div>
-      </ng-container>
-    </div>
-    <div class="row">
-      <div class=" mx-2 mx-xxl-0 align-content-center d-flex flex-column text-center border-top border-secondary">
-        <table class="table table-borderless pb-2">
-          <tbody>
-          <tr>
-            <ng-container *ngFor="let user of result?.users">
-              <td>
-                {{user.username}}
-              </td>
-            </ng-container>
-          </tr>
-          <tr>
-            <ng-container *ngFor="let user of result?.users">
-              <td>
-                {{user?.card ? user.card.value : '-'}}
-              </td>
-            </ng-container>
-          </tr>
-          </tbody>
-        </table>
       </div>
     </div>
   </div>

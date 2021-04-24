@@ -16,7 +16,7 @@
 
 .her {
   max-height: 24rem;
-  transition: max-height .4s ease-in;
+  transition: max-height .3s ease-in;
   &._results {
     max-height: 12rem;
   }
@@ -62,15 +62,17 @@
   line-height: 16px;
 }
 
-.result {
-  &-container {
-    flex: 0;
-    transition: all .3s ease-in;
+.bottom-panel {
+  background-color: $fade-ash;
+  flex: 0;
+  transition: all 0.4s ease-in;
 
-    &._show {
-      flex: 1;
-    }
+  &._show {
+    flex: 1;
   }
+}
+
+.result {
   &-data {
     opacity: 0;
     display: none;

@@ -155,7 +155,10 @@ export class RoomComponent implements OnInit {
 
   onCardClick(selectedCard: PokerCard): void {
     this.selectCardInHand(selectedCard);
-    this.socket.emit('user-select-card', selectedCard.value);
+    this.socket.emit('user-select-card', {
+      value: selectedCard.value,
+      from: this.userId,
+    });
   }
 
   private selectCardInHand(selectedCard: PokerCard): void {

@@ -44,7 +44,6 @@ export class SettingsComponent implements OnInit {
   onChangeNameClick(): void {
     this.onChangeVisibility(false);
     this.socketService.getSocket().emit('update-user', {
-      ...this.user,
       username: this.formGroup.get('nameInput').value,
     });
   }

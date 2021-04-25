@@ -10,7 +10,7 @@
               <div *ngIf="user.connected"
                    class="player-card--container d-flex flex-none my-3 flex-column text-center align-items-center px-2">
                 <div class="player-card mb-2"
-                     [class._selected__player]="user.card && !isResultShown">
+                     [class._selected__player]="!isResultShown && user.card">
                   <span class="player-card--value" [class.invisible]="!isResultShown">{{user?.card?.value}}</span>
                 </div>
                 <span class="player-name">{{user.username}}</span>

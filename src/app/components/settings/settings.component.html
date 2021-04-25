@@ -1,14 +1,23 @@
-<div class="modal modal-backdrop" [class.d-block]="visible">
+<div class="modal modal-backdrop"
+     [class.d-block]="visible"
+>
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Settings</h5>
-        <button type="button" class="btn-close" (click)="onChangeVisibility(false)" aria-label="Close"></button>
+        <h5 class="modal-title text-charcoal">Settings</h5>
+        <svg xmlns="http://www.w3.org/2000/svg"
+             class="btn-green-close"
+             (click)="onChangeVisibility(false)"
+             viewBox="0 0 24 24"
+             stroke="currentColor"
+        >
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+        </svg>
       </div>
       <div class="modal-body">
         <form [formGroup]="formGroup">
-          <label class="form-label">Name</label>
-          <input [formControlName]="'nameInput'" type="text" class="form-control"/>
+          <label class="form-label text-charcoal">Name</label>
+          <input [formControlName]="'nameInput'" type="text" class="form-control form-control-input"/>
         </form>
       </div>
       <div class="modal-footer">

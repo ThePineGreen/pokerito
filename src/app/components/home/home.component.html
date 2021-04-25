@@ -1,17 +1,16 @@
-<div class="vh-100 d-flex flex-column">
-  <div class="spacer"></div>
-  <div class="px-4 py-5 my-5">
-    <div class="col-6 mx-auto">
-      <h1 class="display-5 fw-bold">Pokerito</h1>
-      <h4 class="mb-4">
+<div class="d-flex flex-column h-100 align-content-between">
+  <div class="container flex-grow-1 d-flex align-items-center">
+    <div class="col">
+      <h1 class="display-5 fw-bold text-charcoal">Pokerito</h1>
+      <h4 class="mb-4 text-charcoal">
         Simple planning poker games.
       </h4>
-      <button [routerLink]="['/room', uiid]" type="button" class="btn btn-dark">Start new game</button>
+      <button [routerLink]="['/room', uiid]" type="button" class="btn btn-dark-sea-green">Start new game</button>
     </div>
   </div>
 
-  <footer class="footer bg-light py-3 mt-auto">
-    <div class="container">
+  <footer class="footer footer-ash py-3 mt-auto">
+    <div class="container text-charcoal">
     <span>
       <strong>Pokerito</strong> by <a href="https://github.com/ThePineGreen">Alexander Vdovenko</a>. The source code is licensed
       <a href="http://opensource.org/licenses/mit-license.php">MIT</a>.

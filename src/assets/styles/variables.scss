@@ -1,0 +1,16 @@
+
+$charcoal: #2F3E46;
+$dark-slate: #354F52;
+$cambridge: #93B499;
+$hookers: #52796F;
+$dark-sea: #84A98C;
+$ash: #CAD2C5;
+
+$charcoal-light: lighten($charcoal, 20%);
+$ash-light: rgba($ash, .75);
+$dark-sea-light: rgba($dark-sea, .75);
+$ash-lighter: rgba($ash, .25);
+$charcoal-lighter: rgba($charcoal, .25);
+$hookers-lighter: rgba($hookers, .25);
+
+$btn-shadow: 0 4px 10px $ash;

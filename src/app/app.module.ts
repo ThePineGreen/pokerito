@@ -7,15 +7,25 @@ import { AppComponent } from './app.component';
 import { RoomComponent } from './components/room/room.component';
 import {SocketService} from './service/socket.service';
 import {HomeComponent} from './components/home/home.component';
+import { ResultComponent } from './components/result/result.component';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { NavbarComponent } from './components/navbar/navbar.component';
+import {SettingsComponent} from './components/settings/settings.component';
+import { NotificationComponent } from './components/notification/notification.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     RoomComponent,
     HomeComponent,
+    ResultComponent,
+    NavbarComponent,
+    SettingsComponent,
+    NotificationComponent,
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     ReactiveFormsModule
   ],

@@ -1,0 +1,14 @@
+@import "../../../assets/styles/variables";
+
+.notification {
+  border-radius: 6px;
+  color: $dark-slate;
+
+  &--close {
+    cursor: pointer;
+  }
+}
+
+.top-header {
+  top: 56px;
+}

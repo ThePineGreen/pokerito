@@ -3,21 +3,36 @@ import {PokerCard} from '../../models/PokerCard.model';
 import {ActivatedRoute} from '@angular/router';
 import {Socket} from 'socket.io-client';
 import {SocketService} from '../../service/socket.service';
+import {SelectCardEvent} from '../../models/event.model';
+import {transition, trigger, useAnimation} from '@angular/animations';
+import {slideInCards, slideOutCards} from '../../slide.animation';
+import {NavbarService} from '../../service/navbar.service';
 
 @Component({
   selector: 'app-room',
   templateUrl: './room.component.html',
-  styleUrls: ['./room.component.scss']
+  styleUrls: ['./room.component.scss'],
+  animations: [
+    trigger('groupTickets', [
+      transition(':enter', [useAnimation(slideInCards)]),
+      transition(':leave', [useAnimation(slideOutCards)]),
+    ]),
+    trigger('hideCards', [
+      transition(':enter', [useAnimation(slideInCards)]),
+      transition(':leave', [useAnimation(slideOutCards)])
+    ])
+  ],
 })
 export class RoomComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
+              private navbarService: NavbarService,
               private socketService: SocketService) {
   }
 
   cardNumbers: string[] = ['0', '0.5', '1', '2', '3', '5', '8', '13', '20', '40', '100', '?'];
-  users: Record<string, string>[];
-  isNotificationShowed = false;
+  users: Record<string, any>[];
+  isNotificationShowed: boolean;
   result: Record<string, any>;
   coefficientEstimate: number;
   cardDeck: PokerCard[];
@@ -47,7 +62,7 @@ export class RoomComponent implements OnInit {
   ngOnInit(): void {
     this.roomId = this.route.snapshot.paramMap.get('id');
     this.socket = this.socketService.connectToSocket();
-    this.isNameExist = !!sessionStorage.getItem('name');
+    this.checkName();
     this.sessionId = sessionStorage.getItem('sessionId');
     this.userId = sessionStorage.getItem('userId');
     this.cardDeck = RoomComponent.generateCardDeck(this.cardNumbers);
@@ -65,10 +80,11 @@ export class RoomComponent implements OnInit {
       this.subscribeToUsers();
     }
 
-    this.socket.on('user-select-card', ({value, from}) => {
+    this.socket.on('user-select-card', (selectedCard: SelectCardEvent) => {
       for (const user of this.users) {
-        if (user.userId === from) {
-          user.card = value;
+        if (user.userId === selectedCard.from) {
+          user.card = selectedCard;
+          console.dir(user.card);
           user.isCardSelected = 'true';
           break;
         }
@@ -97,12 +113,22 @@ export class RoomComponent implements OnInit {
     this.subscribeToUsers();
   }
 
+  private checkName(): void {
+    const name = sessionStorage.getItem('name');
+    if (name) {
+      this.isNameExist = true;
+      this.isNotificationShowed = false;
+      this.navbarService.toggleSettingButtonView();
+    }
+  }
+
   private subscribeToUsers(): void {
     this.socket.on('users', (users) => {
       users.forEach((user) => {
         user.self = user.userId === this.userId;
         if (user.self) {
           this.isOwner = user.owner;
+          this.isNotificationShowed = this.isNotificationShowed && this.isOwner;
           RoomComponent.copyUrlToClipboard();
           this.isNameExist = true;
 
@@ -129,7 +155,10 @@ export class RoomComponent implements OnInit {
 
   onCardClick(selectedCard: PokerCard): void {
     this.selectCardInHand(selectedCard);
-    this.socket.emit('user-select-card', selectedCard.value);
+    this.socket.emit('user-select-card', {
+      value: selectedCard.value,
+      from: this.userId,
+    });
   }
 
   private selectCardInHand(selectedCard: PokerCard): void {
@@ -148,6 +177,7 @@ export class RoomComponent implements OnInit {
     ];
     const name = nameInput.value ? nameInput.value : placeholderNames[Math.floor(Math.random() * 6)];
     sessionStorage.setItem('name', name);
+    this.navbarService.toggleSettingButtonView();
     this.isNotificationShowed = true;
     this.connectToSocket(name);
   }
@@ -158,9 +188,5 @@ export class RoomComponent implements OnInit {
 
   onResetRoomClick(): void {
     this.socket.emit('reset-room');
-  }
-
-  showCoefficientEstimate(coefficient: number): void {
-    this.coefficientEstimate = parseFloat((this.result.resultSumm * coefficient).toFixed(1));
   }
 }

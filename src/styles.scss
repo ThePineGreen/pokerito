@@ -1,5 +1,7 @@
+@import "assets/styles/variables";
+@import "assets/styles/common";
 
-$dark: #363636;
+$secondary: $cambridge;
 
 @import '~bootstrap/scss/bootstrap';
 
@@ -7,24 +9,4 @@ body, button, input, optgroup, select, textarea {
   font-family: Nunito, sans-serif;
 }
 
-body {
-  display: flex;
-  min-height: 100vh;
-}
-
-.main {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-}
-
-.spacer {
-  height: 8rem;
-}
-
-@media (min-height: 768px) {
-  .spacer {
-    height: 2rem;
-  }
-}
 

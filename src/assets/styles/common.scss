@@ -1,0 +1,61 @@
+@import "variables";
+
+a {
+  color: $hookers;
+}
+
+.bg-ash-lighter {
+  background-color: $ash-lighter !important;
+}
+
+.btn-dark-sea-green {
+  background-color: $dark-sea;
+  color: white;
+  box-shadow: $btn-shadow;
+
+  &:active {
+    background-color: $dark-sea-light;
+  }
+}
+
+.btn-ash-gray {
+  background-color: $ash;
+  color: $charcoal;
+  box-shadow: $btn-shadow;
+
+  &:active {
+    background-color: $ash-light;
+  }
+}
+
+.btn-green-close {
+  color: $dark-sea;
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.text-charcoal {
+  color: $charcoal;
+}
+
+.form-control-input {
+  color: $charcoal;
+  background-color: $ash;
+
+  &::placeholder {
+    color: $charcoal-light;
+  }
+
+  &:focus {
+    border-color: $dark-sea;
+    box-shadow: 0 0 0 0.25rem $hookers-lighter;
+  }
+}
+
+.flex-auto {
+  flex: 1 1 auto;
+}
+
+.flex-none {
+  flex: none;
+}

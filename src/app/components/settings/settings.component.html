@@ -1,0 +1,20 @@
+<div class="modal modal-backdrop" [class.d-block]="visible">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Settings</h5>
+        <button type="button" class="btn-close" (click)="onChangeVisibility(false)" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="formGroup">
+          <label class="form-label">Name</label>
+          <input [formControlName]="'nameInput'" type="text" class="form-control"/>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-ash-gray" (click)="onChangeVisibility(false)">Close</button>
+        <button type="button" class="btn btn-dark-sea-green" (click)="onChangeNameClick()">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>

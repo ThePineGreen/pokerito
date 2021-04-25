@@ -7,8 +7,10 @@ import {NavbarService} from '../../service/navbar.service';
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit {
+  isSettingsVisible: boolean;
 
   constructor(public navbarService: NavbarService) {
+    this.isSettingsVisible = false;
   }
 
   ngOnInit(): void {

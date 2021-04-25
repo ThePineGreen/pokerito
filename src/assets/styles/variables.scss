@@ -1,13 +1,16 @@
 
 $charcoal: #2F3E46;
-$dark-slate-gray: #354F52;
-$cambridge-blue: #93B499;
-$hookers-green: #52796F;
-$dark-sea-green: #84A98C;
-$ash-gray: #CAD2C5;
+$dark-slate: #354F52;
+$cambridge: #93B499;
+$hookers: #52796F;
+$dark-sea: #84A98C;
+$ash: #CAD2C5;
 
 $charcoal-light: lighten($charcoal, 20%);
+$ash-light: rgba($ash, .75);
+$dark-sea-light: rgba($dark-sea, .75);
+$ash-lighter: rgba($ash, .25);
+$charcoal-lighter: rgba($charcoal, .25);
+$hookers-lighter: rgba($hookers, .25);
 
-$fade-ash: rgba($ash-gray, .25);
-$fade-charcoal: rgba($charcoal, .25);
-$fade-hookers-green: rgba($hookers-green, .25);
+$btn-shadow: 0 4px 10px $ash;

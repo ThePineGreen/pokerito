@@ -10,6 +10,7 @@ import {HomeComponent} from './components/home/home.component';
 import { ResultComponent } from './components/result/result.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { NavbarComponent } from './components/navbar/navbar.component';
+import {SettingsComponent} from './components/settings/settings.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
     HomeComponent,
     ResultComponent,
     NavbarComponent,
+    SettingsComponent,
   ],
   imports: [
     BrowserModule,

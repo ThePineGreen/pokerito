@@ -11,11 +11,11 @@
 
     &:hover {
       border-radius: 6px;
-      background-color: $fade-ash;
+      background-color: $ash-lighter;
     }
 
     &:active {
-      background-color: rgba($ash-gray, .5);
+      background-color: rgba($ash, .5);
     }
 
     &:hover > .navbar--icon-settings {

@@ -11,7 +11,10 @@
       </svg>
       Pokerito
     </a>
-    <div class="navbar__container" *ngIf="navbarService.hasSettingsButton">
+    <div class="navbar__container"
+         *ngIf="navbarService.hasSettingsButton"
+         (click)="isSettingsVisible = !isSettingsVisible"
+    >
       <svg xmlns="http://www.w3.org/2000/svg" class="navbar--icon-settings" fill="none" viewBox="0 0 24 24"
            stroke="currentColor">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.25"
@@ -21,3 +24,4 @@
     </div>
   </div>
 </nav>
+<app-settings [(visible)]="isSettingsVisible"></app-settings>

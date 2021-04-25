@@ -1,7 +1,7 @@
 @import "../../../assets/styles/common";
 
 .bg-opacity-ash {
-  background-color: $fade-ash;
+  background-color: $ash-lighter;
 }
 
 .max-height {
@@ -32,8 +32,8 @@
   height: 7.45rem;
   display: flex;
   border-radius: 4px;
-  border: 1px solid $ash-gray;
-  color: $hookers-green;
+  border: 1px solid $ash;
+  color: $hookers;
 
   &--value {
     align-self: center;
@@ -68,7 +68,7 @@
 }
 
 .bottom-panel {
-  background-color: $fade-ash;
+  background-color: $ash-lighter;
   min-height: 10rem;
   transition: all 320ms ease-in;
 
@@ -89,7 +89,7 @@
 }
 
 ._selected {
-  background-color: $dark-sea-green;
+  background-color: $dark-sea;
   color: white;
 
   &__player {

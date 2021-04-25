@@ -1,13 +1,27 @@
 @import "variables";
 
 a {
-  color: $hookers-green;
+  color: $hookers;
 }
 
 .btn-dark-sea-green {
-  background-color: $dark-sea-green;
+  background-color: $dark-sea;
   color: white;
-  box-shadow: 0 4px 10px $ash-gray;
+  box-shadow: $btn-shadow;
+
+  &:active {
+    background-color: $dark-sea-light;
+  }
+}
+
+.btn-ash-gray {
+  background-color: $ash;
+  color: $charcoal;
+  box-shadow: $btn-shadow;
+
+  &:active {
+    background-color: $ash-light;
+  }
 }
 
 .text-charcoal {
@@ -16,15 +30,15 @@ a {
 
 .form-control-input {
   color: $charcoal;
-  background-color: $ash-gray;
+  background-color: $ash;
 
   &::placeholder {
     color: $charcoal-light;
   }
 
   &:focus {
-    border-color: $dark-sea-green;
-    box-shadow: 0 0 0 0.25rem $fade-hookers-green;
+    border-color: $dark-sea;
+    box-shadow: 0 0 0 0.25rem $hookers-lighter;
   }
 }
 

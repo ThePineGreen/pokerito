@@ -1,5 +1,5 @@
 <ng-container *ngIf="isNameExist; else nameTemplate">
-  <div class="max-height d-flex flex-column align-content-between">
+  <div class="max-height d-flex flex-column align-content-between position-relative">
     <div class="container flex-auto d-flex justify-content-center">
       <div class="row flex-column py-4 w-100 justify-content-between">
         <div class="d-flex flex-auto align-items-center">
@@ -56,6 +56,9 @@
         ></app-result>
       </div>
     </div>
+    <app-notification [(visible)]="isNotificationShowed"
+                      *ngIf="isNotificationShowed"
+    ></app-notification>
   </div>
 </ng-container>
 

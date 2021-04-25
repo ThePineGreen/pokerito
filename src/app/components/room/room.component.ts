@@ -32,7 +32,7 @@ export class RoomComponent implements OnInit {
 
   cardNumbers: string[] = ['0', '0.5', '1', '2', '3', '5', '8', '13', '20', '40', '100', '?'];
   users: Record<string, any>[];
-  isNotificationShowed = false;
+  isNotificationShowed: boolean;
   result: Record<string, any>;
   coefficientEstimate: number;
   cardDeck: PokerCard[];
@@ -62,8 +62,7 @@ export class RoomComponent implements OnInit {
   ngOnInit(): void {
     this.roomId = this.route.snapshot.paramMap.get('id');
     this.socket = this.socketService.connectToSocket();
-    this.isNameExist = !!sessionStorage.getItem('name');
-    this.isNameExist && this.navbarService.toggleSettingButtonView();
+    this.checkName();
     this.sessionId = sessionStorage.getItem('sessionId');
     this.userId = sessionStorage.getItem('userId');
     this.cardDeck = RoomComponent.generateCardDeck(this.cardNumbers);
@@ -114,12 +113,22 @@ export class RoomComponent implements OnInit {
     this.subscribeToUsers();
   }
 
+  private checkName(): void {
+    const name = sessionStorage.getItem('name');
+    if (name) {
+      this.isNameExist = true;
+      this.isNotificationShowed = false;
+      this.navbarService.toggleSettingButtonView();
+    }
+  }
+
   private subscribeToUsers(): void {
     this.socket.on('users', (users) => {
       users.forEach((user) => {
         user.self = user.userId === this.userId;
         if (user.self) {
           this.isOwner = user.owner;
+          this.isNotificationShowed = this.isNotificationShowed && this.isOwner;
           RoomComponent.copyUrlToClipboard();
           this.isNameExist = true;
 

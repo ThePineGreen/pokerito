@@ -9,6 +9,7 @@ import {SocketService} from './service/socket.service';
 import {HomeComponent} from './components/home/home.component';
 import { ResultComponent } from './components/result/result.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { NavbarComponent } from './components/navbar/navbar.component';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     RoomComponent,
     HomeComponent,
     ResultComponent,
+    NavbarComponent,
   ],
   imports: [
     BrowserModule,

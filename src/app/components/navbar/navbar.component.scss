@@ -1,0 +1,50 @@
+@import "../../../assets/styles/variables";
+
+.navbar {
+  &-color {
+    background-color: $charcoal;
+  }
+
+  &__container {
+    display: flex;
+    padding: 0.25rem;
+
+    &:hover {
+      border-radius: 6px;
+      background-color: $fade-ash;
+    }
+
+    &:active {
+      background-color: rgba($ash-gray, .5);
+    }
+
+    &:hover > .navbar--icon-settings {
+      animation: rotating 2s linear infinite;
+    }
+
+    @keyframes rotating {
+      from {
+        transform: rotate(0deg);
+      }
+      to {
+        transform: rotate(360deg);
+      }
+    }
+  }
+
+  &--icon {
+
+    &-logo {
+      width: 24px;
+      height: 24px;
+      fill: white;
+      margin-right: 0.5rem;
+    }
+
+    &-settings {
+      width: 24px;
+      height: 24px;
+      color: white;
+    }
+  }
+}

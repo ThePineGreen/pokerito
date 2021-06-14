@@ -8,6 +8,7 @@ import {transition, trigger, useAnimation} from '@angular/animations';
 import {slideInCards, slideOutCards} from '../../slide.animation';
 import {NavbarService} from '../../service/navbar.service';
 import names from '../../../assets/names.json';
+import cards from '../../../assets/cards.json';
 
 @Component({
   selector: 'app-room',
@@ -31,7 +32,7 @@ export class RoomComponent implements OnInit {
               private socketService: SocketService) {
   }
 
-  cardNumbers: string[] = ['0', '0.5', '1', '2', '3', '5', '8', '13', '20', '40', '100', '?'];
+  cardNumbers: string[] = cards.default;
   users: Record<string, any>[];
   isNotificationShowed: boolean;
   result: Record<string, any>;

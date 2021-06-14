@@ -140,7 +140,6 @@ export class RoomComponent implements OnInit {
       for (const user of this.users) {
         if (user.userId === selectedCard.from) {
           user.card = selectedCard;
-          console.dir(user.card);
           user.isCardSelected = 'true';
           break;
         }
@@ -155,6 +154,11 @@ export class RoomComponent implements OnInit {
     });
   }
 
+  private selectCardInHand(selectedCard: PokerCard): void {
+    this.cardDeck.forEach(card => card.isSelected = false);
+    this.cardDeck.find(value => value.value === selectedCard.value).isSelected = true;
+  }
+
   onCardClick(selectedCard: PokerCard): void {
     this.selectCardInHand(selectedCard);
     this.socket.emit('user-select-card', {
@@ -163,14 +167,8 @@ export class RoomComponent implements OnInit {
     });
   }
 
-  private selectCardInHand(selectedCard: PokerCard): void {
-    this.cardDeck.forEach(card => card.isSelected = false);
-    this.cardDeck.find(value => value.value === selectedCard.value).isSelected = true;
-  }
-
   onContinueClick(nameInput: HTMLInputElement): void {
-    const placeholderNames: string[] = names;
-    const name = nameInput.value ? nameInput.value : placeholderNames[Math.floor(Math.random() * 6)];
+    const name = nameInput.value ? nameInput.value : names[Math.floor(Math.random() * 6)];
     sessionStorage.setItem('name', name);
     this.navbarService.toggleSettingButtonView();
     this.isNotificationShowed = true;

@@ -7,6 +7,8 @@ import {SelectCardEvent} from '../../models/event.model';
 import {transition, trigger, useAnimation} from '@angular/animations';
 import {slideInCards, slideOutCards} from '../../slide.animation';
 import {NavbarService} from '../../service/navbar.service';
+import names from '../../../assets/names.json';
+import cards from '../../../assets/cards.json';
 
 @Component({
   selector: 'app-room',
@@ -30,7 +32,7 @@ export class RoomComponent implements OnInit {
               private socketService: SocketService) {
   }
 
-  cardNumbers: string[] = ['0', '0.5', '1', '2', '3', '5', '8', '13', '20', '40', '100', '?'];
+  cardNumbers: string[] = cards.default;
   users: Record<string, any>[];
   isNotificationShowed: boolean;
   result: Record<string, any>;
@@ -77,31 +79,8 @@ export class RoomComponent implements OnInit {
     if (this.sessionId) {
       this.socket.auth = {sessionId: this.sessionId};
       this.socket.connect();
-      this.subscribeToUsers();
+      this.initSubscribtions();
     }
-
-    this.socket.on('user-select-card', (selectedCard: SelectCardEvent) => {
-      for (const user of this.users) {
-        if (user.userId === selectedCard.from) {
-          user.card = selectedCard;
-          console.dir(user.card);
-          user.isCardSelected = 'true';
-          break;
-        }
-      }
-    });
-
-    this.socket.on('show-results', result => {
-      this.isResultShown = true;
-      this.result = result;
-    });
-
-    this.socket.on('reset-room', () => {
-      this.isResultShown = false;
-      this.coefficientEstimate = null;
-      this.result = null;
-      this.cardDeck.forEach(card => card.isSelected = false);
-    });
   }
 
   private connectToSocket(name: string): void {
@@ -110,7 +89,7 @@ export class RoomComponent implements OnInit {
       roomId: this.roomId
     };
     this.socket.connect();
-    this.subscribeToUsers();
+    this.initSubscribtions();
   }
 
   private checkName(): void {
@@ -122,7 +101,7 @@ export class RoomComponent implements OnInit {
     }
   }
 
-  private subscribeToUsers(): void {
+  private initSubscribtions(): void {
     this.socket.on('users', (users) => {
       users.forEach((user) => {
         user.self = user.userId === this.userId;
@@ -151,6 +130,33 @@ export class RoomComponent implements OnInit {
         return a.username > b.username ? 1 : 0;
       });
     });
+
+    this.socket.on('show-results', result => {
+      this.isResultShown = true;
+      this.result = result;
+    });
+
+    this.socket.on('user-select-card', (selectedCard: SelectCardEvent) => {
+      for (const user of this.users) {
+        if (user.userId === selectedCard.from) {
+          user.card = selectedCard;
+          user.isCardSelected = 'true';
+          break;
+        }
+      }
+    });
+
+    this.socket.on('reset-room', () => {
+      this.isResultShown = false;
+      this.coefficientEstimate = null;
+      this.result = null;
+      this.cardDeck.forEach(card => card.isSelected = false);
+    });
+  }
+
+  private selectCardInHand(selectedCard: PokerCard): void {
+    this.cardDeck.forEach(card => card.isSelected = false);
+    this.cardDeck.find(value => value.value === selectedCard.value).isSelected = true;
   }
 
   onCardClick(selectedCard: PokerCard): void {
@@ -161,21 +167,8 @@ export class RoomComponent implements OnInit {
     });
   }
 
-  private selectCardInHand(selectedCard: PokerCard): void {
-    this.cardDeck.forEach(card => card.isSelected = false);
-    this.cardDeck.find(value => value.value === selectedCard.value).isSelected = true;
-  }
-
   onContinueClick(nameInput: HTMLInputElement): void {
-    const placeholderNames: string[] = [
-      'Han Solo',
-      'Obi-Wan Kenobi',
-      'Count Dooku',
-      'R2-D2',
-      'C-3PO',
-      'Luke Skywalker',
-    ];
-    const name = nameInput.value ? nameInput.value : placeholderNames[Math.floor(Math.random() * 6)];
+    const name = nameInput.value ? nameInput.value : names[Math.floor(Math.random() * 6)];
     sessionStorage.setItem('name', name);
     this.navbarService.toggleSettingButtonView();
     this.isNotificationShowed = true;

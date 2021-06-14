@@ -4,6 +4,10 @@ a {
   color: $hookers;
 }
 
+.body-height {
+  min-height: calc(100vh - 56px);
+}
+
 .bg-ash-lighter {
   background-color: $ash-lighter !important;
 }

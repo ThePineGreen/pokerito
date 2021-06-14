@@ -79,31 +79,8 @@ export class RoomComponent implements OnInit {
     if (this.sessionId) {
       this.socket.auth = {sessionId: this.sessionId};
       this.socket.connect();
-      this.subscribeToUsers();
+      this.initSubscribtions();
     }
-
-    this.socket.on('user-select-card', (selectedCard: SelectCardEvent) => {
-      for (const user of this.users) {
-        if (user.userId === selectedCard.from) {
-          user.card = selectedCard;
-          console.dir(user.card);
-          user.isCardSelected = 'true';
-          break;
-        }
-      }
-    });
-
-    this.socket.on('show-results', result => {
-      this.isResultShown = true;
-      this.result = result;
-    });
-
-    this.socket.on('reset-room', () => {
-      this.isResultShown = false;
-      this.coefficientEstimate = null;
-      this.result = null;
-      this.cardDeck.forEach(card => card.isSelected = false);
-    });
   }
 
   private connectToSocket(name: string): void {
@@ -112,7 +89,7 @@ export class RoomComponent implements OnInit {
       roomId: this.roomId
     };
     this.socket.connect();
-    this.subscribeToUsers();
+    this.initSubscribtions();
   }
 
   private checkName(): void {
@@ -124,7 +101,7 @@ export class RoomComponent implements OnInit {
     }
   }
 
-  private subscribeToUsers(): void {
+  private initSubscribtions(): void {
     this.socket.on('users', (users) => {
       users.forEach((user) => {
         user.self = user.userId === this.userId;
@@ -152,6 +129,29 @@ export class RoomComponent implements OnInit {
         }
         return a.username > b.username ? 1 : 0;
       });
+    });
+
+    this.socket.on('show-results', result => {
+      this.isResultShown = true;
+      this.result = result;
+    });
+
+    this.socket.on('user-select-card', (selectedCard: SelectCardEvent) => {
+      for (const user of this.users) {
+        if (user.userId === selectedCard.from) {
+          user.card = selectedCard;
+          console.dir(user.card);
+          user.isCardSelected = 'true';
+          break;
+        }
+      }
+    });
+
+    this.socket.on('reset-room', () => {
+      this.isResultShown = false;
+      this.coefficientEstimate = null;
+      this.result = null;
+      this.cardDeck.forEach(card => card.isSelected = false);
     });
   }
 

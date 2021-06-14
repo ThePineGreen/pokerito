@@ -7,6 +7,7 @@ import {SelectCardEvent} from '../../models/event.model';
 import {transition, trigger, useAnimation} from '@angular/animations';
 import {slideInCards, slideOutCards} from '../../slide.animation';
 import {NavbarService} from '../../service/navbar.service';
+import names from '../../../assets/names.json';
 
 @Component({
   selector: 'app-room',
@@ -167,14 +168,7 @@ export class RoomComponent implements OnInit {
   }
 
   onContinueClick(nameInput: HTMLInputElement): void {
-    const placeholderNames: string[] = [
-      'Han Solo',
-      'Obi-Wan Kenobi',
-      'Count Dooku',
-      'R2-D2',
-      'C-3PO',
-      'Luke Skywalker',
-    ];
+    const placeholderNames: string[] = names;
     const name = nameInput.value ? nameInput.value : placeholderNames[Math.floor(Math.random() * 6)];
     sessionStorage.setItem('name', name);
     this.navbarService.toggleSettingButtonView();

@@ -45,6 +45,7 @@ export class RoomComponent implements OnInit {
   userId: string;
   socket: Socket;
   roomId: string;
+  isTextLabels: boolean;
 
   private static copyUrlToClipboard(): void {
     const dummy = document.createElement('input');
@@ -103,8 +104,10 @@ export class RoomComponent implements OnInit {
           this.isOwner = user.owner;
           if (user.cardLabels === 1) {
             this.cardDeck = cards.default;
+            this.isTextLabels = false;
           } else if (user.cardLabels === 2) {
             this.cardDeck = cards.easyan;
+            this.isTextLabels = true;
           }
           this.isNotificationShowed = this.isNotificationShowed && this.isOwner;
           RoomComponent.copyUrlToClipboard();
@@ -133,7 +136,7 @@ export class RoomComponent implements OnInit {
       });
     });
 
-    this.socket.on('show-results', result => {
+    this.socket.on('show-results', (result) => {
       this.isResultShown = true;
       this.result = result;
     });
@@ -141,7 +144,7 @@ export class RoomComponent implements OnInit {
     this.socket.on('user-select-card', (selectedCard: SelectCardEvent) => {
       for (const user of this.users) {
         if (user.userId === selectedCard.from) {
-          user.card = selectedCard;
+          user.card = this.getCardByValue(selectedCard.value);
           user.isCardSelected = 'true';
           break;
         }

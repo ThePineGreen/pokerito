@@ -32,7 +32,7 @@ export class RoomComponent implements OnInit {
               private socketService: SocketService) {
   }
 
-  cardNumbers: string[] = cards.default;
+  cardNumbers: PokerCard[] = cards.default;
   users: Record<string, any>[];
   isNotificationShowed: boolean;
   result: Record<string, any>;
@@ -45,12 +45,6 @@ export class RoomComponent implements OnInit {
   userId: string;
   socket: Socket;
   roomId: string;
-
-  private static generateCardDeck(numbers: string[]): PokerCard[] {
-    return numbers.map(item => {
-      return {value: item, isSelected: false};
-    });
-  }
 
   private static copyUrlToClipboard(): void {
     const dummy = document.createElement('input');
@@ -67,7 +61,7 @@ export class RoomComponent implements OnInit {
     this.checkName();
     this.sessionId = sessionStorage.getItem('sessionId');
     this.userId = sessionStorage.getItem('userId');
-    this.cardDeck = RoomComponent.generateCardDeck(this.cardNumbers);
+    this.cardDeck = this.cardNumbers;
 
     this.socket.on('session', ({sessionId, userId}) => {
       this.socket.auth = {sessionId};
@@ -79,7 +73,7 @@ export class RoomComponent implements OnInit {
     if (this.sessionId) {
       this.socket.auth = {sessionId: this.sessionId};
       this.socket.connect();
-      this.initSubscribtions();
+      this.initSubscriptions();
     }
   }
 
@@ -89,7 +83,7 @@ export class RoomComponent implements OnInit {
       roomId: this.roomId
     };
     this.socket.connect();
-    this.initSubscribtions();
+    this.initSubscriptions();
   }
 
   private checkName(): void {
@@ -101,18 +95,26 @@ export class RoomComponent implements OnInit {
     }
   }
 
-  private initSubscribtions(): void {
+  private initSubscriptions(): void {
     this.socket.on('users', (users) => {
       users.forEach((user) => {
         user.self = user.userId === this.userId;
         if (user.self) {
           this.isOwner = user.owner;
+          if (user.cardLabels === 1) {
+            this.cardDeck = cards.default;
+          } else if (user.cardLabels === 2) {
+            this.cardDeck = cards.easyan;
+          }
           this.isNotificationShowed = this.isNotificationShowed && this.isOwner;
           RoomComponent.copyUrlToClipboard();
           this.isNameExist = true;
 
           if (user.card) {
-            this.selectCardInHand({value: user.card.value, isSelected: true});
+            this.selectCardInHand({
+              ...this.getCardByValue(user.card.value),
+              isSelected: true,
+            });
           }
         }
       });
@@ -157,6 +159,10 @@ export class RoomComponent implements OnInit {
   private selectCardInHand(selectedCard: PokerCard): void {
     this.cardDeck.forEach(card => card.isSelected = false);
     this.cardDeck.find(value => value.value === selectedCard.value).isSelected = true;
+  }
+
+  private getCardByValue(value: string): PokerCard {
+    return this.cardDeck.find((card: PokerCard) => card.value === value);
   }
 
   onCardClick(selectedCard: PokerCard): void {

@@ -42,7 +42,7 @@
           <div class="col-12 d-flex flex-row justify-content-between">
             <ng-container *ngFor="let card of cardDeck">
               <div class="player-card _selectable" [class._selected]="card.isSelected" (click)="onCardClick(card)">
-                <span class="player-card--value lead">{{card.value}}</span>
+                <span class="player-card--value lead">{{card.label}}</span>
               </div>
             </ng-container>
           </div>

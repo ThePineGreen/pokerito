@@ -18,11 +18,16 @@
         <form [formGroup]="formGroup">
           <label class="form-label text-charcoal">Name</label>
           <input [formControlName]="'nameInput'" type="text" class="form-control form-control-input"/>
+          <label class="form-label text-charcoal">Type of Cards</label>
+          <select [formControlName]="'cardLabels'" class="form-select text-charcoal">
+            <option value=1 selected>Standard</option>
+            <option value=2>Easyan</option>
+          </select>
         </form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-ash-gray" (click)="onChangeVisibility(false)">Close</button>
-        <button type="button" class="btn btn-dark-sea-green" (click)="onChangeNameClick()">Save changes</button>
+        <button type="button" class="btn btn-dark-sea-green" (click)="onSaveClick()">Save changes</button>
       </div>
     </div>
   </div>

@@ -24,6 +24,7 @@ export class SettingsComponent implements OnInit, OnChanges {
   ngOnInit(): void {
     this.formGroup = new FormGroup({
       nameInput: new FormControl(null, null),
+      cardLabels: new FormControl(1, null),
     });
   }
 
@@ -32,10 +33,15 @@ export class SettingsComponent implements OnInit, OnChanges {
     this.visibleChange.emit(value);
   }
 
-  onChangeNameClick(): void {
+  onSaveClick(): void {
+    this.updateUser();
     this.onChangeVisibility(false);
+  }
+
+  updateUser(): void {
     this.socketService.getSocket().emit('update-user', {
       username: this.formGroup.get('nameInput').value,
+      cardLabels: Number.parseInt(this.formGroup.get('cardLabels').value, 10),
     });
   }
 

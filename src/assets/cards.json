@@ -1,17 +1,127 @@
 {
   "default": [
-    "0",
-    "0.5",
-    "1",
-    "2",
-    "3",
-    "5",
-    "8",
-    "13",
-    "20",
-    "40",
-    "100",
-    "?"
+    {
+      "value": "0",
+      "label": "0",
+      "isSelected": false
+    },
+    {
+      "value": "0.5",
+      "label": "0.5",
+      "isSelected": false
+    },
+    {
+      "value": "1",
+      "label": "1",
+      "isSelected": false
+    },
+    {
+      "value": "2",
+      "label": "2",
+      "isSelected": false
+    },
+    {
+      "value": "3",
+      "label": "3",
+      "isSelected": false
+    },
+    {
+      "value": "5",
+      "label": "5",
+      "isSelected": false
+    },
+    {
+      "value": "8",
+      "label": "8",
+      "isSelected": false
+    },
+    {
+      "value": "13",
+      "label": "13",
+      "isSelected": false
+    },
+    {
+      "value": "20",
+      "label": "20",
+      "isSelected": false
+    },
+    {
+      "value": "40",
+      "label": "40",
+      "isSelected": false
+    },
+    {
+      "value": "100",
+      "label": "100",
+      "isSelected": false
+    },
+    {
+      "value": "?",
+      "label": "?",
+      "isSelected": false
+    }
+  ],
+  "easyan": [
+    {
+      "value": "0",
+      "label": "уже сделано",
+      "isSelected": false
+    },
+    {
+      "value": "0.5",
+      "label": "вообще изян",
+      "isSelected": false
+    },
+    {
+      "value": "1",
+      "label": "изян",
+      "isSelected": false
+    },
+    {
+      "value": "2",
+      "label": "изи",
+      "isSelected": false
+    },
+    {
+      "value": "3",
+      "label": "просто",
+      "isSelected": false
+    },
+    {
+      "value": "5",
+      "label": "вроде просто",
+      "isSelected": false
+    },
+    {
+      "value": "8",
+      "label": "норм",
+      "isSelected": false
+    },
+    {
+      "value": "13",
+      "label": "норм так",
+      "isSelected": false
+    },
+    {
+      "value": "20",
+      "label": "хз как-то",
+      "isSelected": false
+    },
+    {
+      "value": "40",
+      "label": "очень сложно",
+      "isSelected": false
+    },
+    {
+      "value": "100",
+      "label": "вроде изян",
+      "isSelected": false
+    },
+    {
+      "value": "?",
+      "label": "?",
+      "isSelected": false
+    }
   ],
   "fibonacci": [
     "0",

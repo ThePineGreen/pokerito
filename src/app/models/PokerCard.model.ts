@@ -1,4 +1,5 @@
 export type PokerCard = {
   value: string;
-  isSelected: boolean;
+  label: string;
+  isSelected?: boolean;
 };

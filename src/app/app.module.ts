@@ -12,6 +12,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import {SettingsComponent} from './components/settings/settings.component';
 import { NotificationComponent } from './components/notification/notification.component';
+import { LoginComponent } from './components/login/login.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { NotificationComponent } from './components/notification/notification.co
     NavbarComponent,
     SettingsComponent,
     NotificationComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,

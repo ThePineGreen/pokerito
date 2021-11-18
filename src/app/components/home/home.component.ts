@@ -23,7 +23,6 @@ export class HomeComponent implements OnInit {
     this.uiid = uuidv4();
 
     this.rooms = (await this.supabase.getUserRooms()).data;
-    console.dir(this.rooms);
   }
 
   public async onRoomCreate(): Promise<void> {

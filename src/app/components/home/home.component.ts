@@ -1,5 +1,6 @@
-import {Component, OnInit} from '@angular/core';
-import {v4 as uuidv4} from 'uuid';
+import { Component, OnInit } from '@angular/core';
+import { SupabaseService } from 'src/app/service/supabase.service';
+import { v4 as uuidv4 } from 'uuid';
 
 @Component({
   selector: 'app-home',
@@ -11,11 +12,21 @@ export class HomeComponent implements OnInit {
   isPopupVisible = false;
   isPopupNeeded = true;
   uiid: string;
+  rooms: any = null;
 
-  ngOnInit(): void {
+  constructor(private readonly supabase: SupabaseService) { }
+
+  public async ngOnInit(): Promise<void> {
     if (sessionStorage.getItem('name')) {
       this.isPopupNeeded = false;
     }
     this.uiid = uuidv4();
+
+    this.rooms = (await this.supabase.getUserRooms()).data;
+    console.dir(this.rooms);
+  }
+
+  public async onRoomCreate(): Promise<void> {
+    await this.supabase.createNewRoom();
   }
 }

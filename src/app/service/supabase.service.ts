@@ -16,17 +16,27 @@ export class SupabaseService {
     return this.supabase.auth.session();
   }
 
-  authChanges(callback: (event: AuthChangeEvent, session: Session | null) => void) {
+  public authChanges(callback: (event: AuthChangeEvent, session: Session | null) => void) {
     return this.supabase.auth.onAuthStateChange(callback);
   }
 
-  public async signInWithGithub() {
+  public async signInWithGithub(): Promise<void> {
     const { user, session, error } = await this.supabase.auth.signIn({
       provider: 'github',
     });
   }
 
-  public async signOut() {
+  public async signOut(): Promise<{error}> {
     return this.supabase.auth.signOut();
+  }
+
+  public async createNewRoom(): Promise<void> {
+    await this.supabase.from('rooms').insert({
+      admin: this.supabase.auth.user.name,
+    });
+  }
+
+  getUserRooms(): any {
+    return this.supabase.from('rooms').select('id, created_at, admin, name').eq('admin', this.supabase.auth.user.name);
   }
 }

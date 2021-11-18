@@ -3,10 +3,14 @@
 
 $secondary: $cambridge;
 
+/* Importing Datepicker SCSS file. */
+@import "~ngx-bootstrap/datepicker/bs-datepicker";
+
 @import '~bootstrap/scss/bootstrap';
 
 body, button, input, optgroup, select, textarea {
   font-family: Nunito, sans-serif;
 }
 
-
+/* Importing Bootstrap SCSS file. */
+@import "~bootstrap/scss/bootstrap";

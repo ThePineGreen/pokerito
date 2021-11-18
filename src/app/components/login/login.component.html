@@ -1,9 +1,19 @@
-<div class="d-flex container flex-row justify-content-center mt-5">
-  <form class="col-4">
-    <h1>Pokerito</h1>
-    <p class="">Sign in with</p>
-    <div class="d-flex flex-row">
-      <button type="button" class="btn btn-secondary w-100" (click)="githubLogin()">Github</button>
+<div class="container col-xl-10 col-xxl-8 px-4 py-5">
+  <div class="row align-items-center g-lg-5 py-5">
+    <div class="col-lg-7 text-center text-lg-start">
+      <h1 class='display-4 fw-bold lh-1 mb-3 text-charcoal'>Pokerito</h1>
+      <p class="col-lg-10 fs-4 text-charcoal">Simple planning poker games</p>
     </div>
-  </form>
+    <div class="col-md-10 mx-auto col-lg-5">
+      <form class="p-4 p-md-5 border rounded-3 bg-light">
+        <button type="button" class="btn btn-secondary btn-lg w-100" (click)="githubLogin()">Continue with GitHub</button>
+        <p class="text-center text-charcoal my-4">or</p>
+        <div class="form-floating mb-3 text-charcoal">
+          <input id='emailInput' type="email" class="form-control form-control-input" placeholder="test@mail.com">
+          <label for='emailInput' class="text-charcoal"> Email adress</label>
+        </div>
+        <button type="button" class="btn btn-lg btn-secondary w-100">Email me a sign in code</button>
+      </form>
+    </div>
+  </div>
 </div>

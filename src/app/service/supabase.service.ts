@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { AuthChangeEvent, createClient, Session, SupabaseClient } from "@supabase/supabase-js";
+import { AuthChangeEvent, createClient, Session, SupabaseClient, User } from "@supabase/supabase-js";
 import { environment } from "src/environments/environment";
 
 @Injectable({
@@ -14,6 +14,10 @@ export class SupabaseService {
 
   get session(): Session {
     return this.supabase.auth.session();
+  }
+
+  get user(): User | null {
+    return this.supabase.auth.user();
   }
 
   public authChanges(callback: (event: AuthChangeEvent, session: Session | null) => void) {
@@ -37,6 +41,6 @@ export class SupabaseService {
   }
 
   getUserRooms(): any {
-    return this.supabase.from('rooms').select('id, created_at, admin, name').eq('admin', this.supabase.auth.user.name);
+    return this.supabase.from('rooms').select('id, created_at, admin, name').eq('admin', this.supabase.auth.user()?.id);
   }
 }

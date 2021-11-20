@@ -19,6 +19,11 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
+import { MatCardModule } from '@angular/material/card';
+import { CreateNewRoomDialogComponent } from './components/create-new-room-dialog/create-new-room-dialog.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +35,7 @@ import { MatDividerModule } from '@angular/material/divider';
     SettingsComponent,
     NotificationComponent,
     LoginComponent,
+    CreateNewRoomDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -42,6 +48,10 @@ import { MatDividerModule } from '@angular/material/divider';
     MatMenuModule,
     MatButtonModule,
     MatDividerModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatCardModule,
+    MatInputModule,
   ],
   providers: [
     SocketService,

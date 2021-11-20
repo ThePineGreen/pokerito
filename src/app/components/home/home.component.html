@@ -4,26 +4,24 @@
     <div class="row row-cols-1 row-cols-lg-4 align-items-stretch g-4 pb-5 pt-4">
       <ng-container *ngFor="let room of rooms">
         <div class="col">
-          <div class="card card-default">
-            <div class="card-body d-flex flex-column justify-content-around">
-              <div class="body-container">
-                <h5 class="card-title text-charcoal">{{room.name}}</h5>
-                <p>{{room.created_at | date}}</p>
-              </div>
-              <div class="d-grid gap-2 d-md-block card-actions">
-                <a href="\room\{{room.id}}" class="link-primary">Go to room</a>
-                <a class="link-danger ms-md-2">Delete</a>
-              </div>
-            </div>
-          </div>
+          <mat-card class="card-default">
+            <mat-card-title>{{room.name}}</mat-card-title>
+            <mat-card-content>
+              <p>{{room.created_at | date}}</p>
+            </mat-card-content>
+            <mat-card-actions>
+              <button mat-button color="warn">Delete</button>
+              <button mat-button color="primary" (click)="goToRoom(room.id)">Go to room</button>
+            </mat-card-actions>
+          </mat-card>
         </div>
       </ng-container>
       <div class="col" *ngIf="rooms?.length < 4">
-        <div class="card card-default">
-          <div class="card-body d-flex flex-column align-items-center justify-content-center">
-            <button class="btn btn-outline-secondary" (click)="onRoomCreate()">Create new room</button>
+        <mat-card class="card-default">
+          <div class="d-flex flex-column align-items-center justify-content-center">
+            <button mat-button color="primary" (click)="onRoomCreate()">Create new room</button>
           </div>
-        </div>
+        </mat-card>
       </div>
     </div>
   </div>

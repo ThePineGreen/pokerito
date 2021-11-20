@@ -34,9 +34,10 @@ export class SupabaseService {
     return this.supabase.auth.signOut();
   }
 
-  public async createNewRoom(): Promise<void> {
+  public async createNewRoom(name: string): Promise<void> {
     await this.supabase.from('rooms').insert({
-      admin: this.supabase.auth.user.name,
+      admin: this.user.id,
+      name,
     });
   }
 

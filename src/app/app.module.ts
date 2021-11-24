@@ -13,17 +13,8 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { SettingsComponent } from './components/settings/settings.component';
 import { NotificationComponent } from './components/notification/notification.component';
 import { LoginComponent } from './components/login/login.component';
-import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
-import { MatIconModule } from '@angular/material/icon';
-import { MatMenuModule } from '@angular/material/menu';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatButtonModule } from '@angular/material/button';
-import { MatDividerModule } from '@angular/material/divider';
-import { MatDialogModule } from '@angular/material/dialog';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import {MatInputModule} from '@angular/material/input';
-import { MatCardModule } from '@angular/material/card';
-import { CreateNewRoomDialogComponent } from './components/create-new-room-dialog/create-new-room-dialog.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { RoomService } from './service/room.service';
 
 @NgModule({
   declarations: [
@@ -35,26 +26,17 @@ import { CreateNewRoomDialogComponent } from './components/create-new-room-dialo
     SettingsComponent,
     NotificationComponent,
     LoginComponent,
-    CreateNewRoomDialogComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    BsDropdownModule.forRoot(),
-    MatIconModule,
-    MatToolbarModule,
-    MatMenuModule,
-    MatButtonModule,
-    MatDividerModule,
-    MatDialogModule,
-    MatFormFieldModule,
-    MatCardModule,
-    MatInputModule,
+    NgbModule,
   ],
   providers: [
     SocketService,
+    RoomService,
   ],
   bootstrap: [AppComponent]
 })

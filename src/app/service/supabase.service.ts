@@ -1,5 +1,8 @@
 import { Injectable } from "@angular/core";
 import { AuthChangeEvent, createClient, Session, SupabaseClient, User } from "@supabase/supabase-js";
+import { SupabaseQueryBuilder } from "@supabase/supabase-js/dist/main/lib/SupabaseQueryBuilder";
+import { SupabaseRealtimeClient } from "@supabase/supabase-js/dist/main/lib/SupabaseRealtimeClient";
+import { BehaviorSubject } from "rxjs";
 import { environment } from "src/environments/environment";
 
 @Injectable({
@@ -8,8 +11,19 @@ import { environment } from "src/environments/environment";
 export class SupabaseService {
   private supabase: SupabaseClient;
 
+  private _currentUser: BehaviorSubject<any> = new BehaviorSubject(null);
+
   constructor() {
     this.supabase = createClient(environment.supabaseUrl, environment.supabaseKey);
+    this.loadUser();
+
+    this.supabase.auth.onAuthStateChange((event, session) => {
+      if (event === 'SIGNED_IN') {
+        this._currentUser.next(session.user);
+      } else {
+        this._currentUser.next(false);
+      }
+    });
   }
 
   get session(): Session {
@@ -18,6 +32,20 @@ export class SupabaseService {
 
   get user(): User | null {
     return this.supabase.auth.user();
+  }
+
+  private async loadUser() {
+    const user = await this.supabase.auth.user();
+
+    if (user) {
+      this._currentUser.next(user);
+    } else {
+      this._currentUser.next(false);
+    }
+  }
+
+  public getTable(tableName: string): SupabaseQueryBuilder<any> {
+    return this.supabase.from(tableName);
   }
 
   public authChanges(callback: (event: AuthChangeEvent, session: Session | null) => void) {
@@ -30,18 +58,14 @@ export class SupabaseService {
     });
   }
 
-  public async signOut(): Promise<{error}> {
+  public async signOut(): Promise<{ error }> {
     return this.supabase.auth.signOut();
   }
 
-  public async createNewRoom(name: string): Promise<void> {
-    await this.supabase.from('rooms').insert({
-      admin: this.user.id,
-      name,
-    });
-  }
-
-  getUserRooms(): any {
-    return this.supabase.from('rooms').select('id, created_at, admin, name').eq('admin', this.supabase.auth.user()?.id);
+  public subscribeTo(tableName: string): SupabaseRealtimeClient {
+    return this.supabase.from(tableName)
+      .on('*', payload => {
+        console.log('changes', payload);
+      })
   }
 }

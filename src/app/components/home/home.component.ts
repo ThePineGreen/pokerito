@@ -1,33 +1,47 @@
-import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Observable } from 'rxjs';
+import { Room } from 'src/app/models/room.model';
+import { RoomService } from 'src/app/service/room.service';
 import { SupabaseService } from 'src/app/service/supabase.service';
 import { v4 as uuidv4 } from 'uuid';
-import { CreateNewRoomDialogComponent } from '../create-new-room-dialog/create-new-room-dialog.component';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
 
   isPopupVisible = false;
   isPopupNeeded = true;
   uiid: string;
-  rooms: any = null;
+  rooms: Observable<Room[]> = this.roomService.rooms;
+  formGroup: FormGroup;
 
   constructor(private readonly supabase: SupabaseService,
-    public dialog: MatDialog,
+    private modalService: NgbModal,
+    private roomService: RoomService,
     private router: Router) { }
 
+  ngOnDestroy(): void {
+    this.roomService.unsubscribe();
+  }
+
   public async ngOnInit(): Promise<void> {
+    this.formGroup = new FormGroup({
+      name: new FormControl(null, null),
+    });
+
     if (sessionStorage.getItem('name')) {
       this.isPopupNeeded = false;
     }
     this.uiid = uuidv4();
 
-    this.rooms = (await this.supabase.getUserRooms()).data;
+    this.roomService.getRoomsByUser();
+    this.roomService.handleRoomsChanged();
   }
 
   public goToRoom(roomId: string) {
@@ -35,7 +49,14 @@ export class HomeComponent implements OnInit {
   }
 
   public async onRoomCreate(): Promise<void> {
-    // await this.supabase.createNewRoom();
-    this.dialog.open(CreateNewRoomDialogComponent);
+    if (this.formGroup.valid) {
+      await this.roomService.createNewRoom(this.formGroup.get('name').value).then(value => {
+        this.modalService.dismissAll();
+      });
+    }
+  }
+
+  open(content) {
+    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' });
   }
 }

@@ -1,0 +1,18 @@
+@import "../../../assets/styles/variables";
+
+.room-card {
+  background-color: $ash-lighter;
+  border-radius: 6px;
+  padding: 12px 24px;
+  min-height: 150px;
+}
+
+.delete-icon {
+  position: relative;
+  top: -2.8rem;
+  right: -0.4rem;
+
+  :hover {
+    cursor: pointer;
+  }
+}

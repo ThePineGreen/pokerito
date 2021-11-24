@@ -59,4 +59,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   open(content) {
     this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' });
   }
+
+  public onDeleteRoom(roomId: string): void {
+    this.roomService.deleteRoom(roomId);
+  }
 }

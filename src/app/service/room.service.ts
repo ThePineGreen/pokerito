@@ -4,6 +4,7 @@ import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { Room } from '../models/room.model';
 import { SupabaseService } from './supabase.service';
 
+const ROOM_TABLE: string = 'rooms';
 @Injectable({
   providedIn: 'root'
 })
@@ -11,7 +12,6 @@ export class RoomService {
 
   private subscription: RealtimeSubscription;
   private _rooms: BehaviorSubject<Room[]> = new BehaviorSubject([]);
-  public roomsSubject: Subject<any[]> = new Subject();
 
   constructor(private supabase: SupabaseService) {
   }
@@ -21,7 +21,7 @@ export class RoomService {
   }
 
   public async getRoomsByUser(): Promise<void> {
-    const query = await this.supabase.getTable('rooms')
+    const query = await this.supabase.getTable(ROOM_TABLE)
       .select('id, name, created_at, admin')
       .eq('admin', this.supabase.user?.id);
     this._rooms.next(query.data);
@@ -32,7 +32,11 @@ export class RoomService {
       admin: this.supabase.user?.id,
       name,
     };
-    await this.supabase.getTable('rooms').insert(room);
+    await this.supabase.getTable(ROOM_TABLE).insert(room);
+  }
+
+  public async deleteRoom(id: string): Promise<void> {
+    await this.supabase.getTable(ROOM_TABLE).delete().match({ id })
   }
 
   public handleRoomsChanged() {

@@ -15,6 +15,7 @@ import { NotificationComponent } from './components/notification/notification.co
 import { LoginComponent } from './components/login/login.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RoomService } from './service/room.service';
+import { RoomCardComponent } from './components/room-card/room-card.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { RoomService } from './service/room.service';
     SettingsComponent,
     NotificationComponent,
     LoginComponent,
+    RoomCardComponent,
   ],
   imports: [
     BrowserModule,

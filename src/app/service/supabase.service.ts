@@ -26,7 +26,7 @@ export class SupabaseService {
     });
   }
 
-  get session(): Session {
+  get session(): Session | null {
     return this.supabase.auth.session();
   }
 
@@ -52,8 +52,8 @@ export class SupabaseService {
     return this.supabase.auth.onAuthStateChange(callback);
   }
 
-  public async signInWithGithub(): Promise<void> {
-    const { user, session, error } = await this.supabase.auth.signIn({
+  public signInWithGithub(): any {
+    return this.supabase.auth.signIn({
       provider: 'github',
     });
   }

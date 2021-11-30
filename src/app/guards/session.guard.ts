@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from "@angular/router";
+import { CanActivate, Router } from "@angular/router";
 import { SupabaseService } from "../service/supabase.service";
 
 @Injectable()
@@ -8,10 +8,16 @@ export class SessionGuard implements CanActivate {
   constructor(private supabase: SupabaseService,
     private router: Router) { }
 
-  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | UrlTree {
-    if (!this.supabase.session) {
-      return this.router.parseUrl('/auth');
-    }
-    return true;
+  canActivate(): Promise<boolean> {
+    return new Promise((resolve) => setTimeout(() => {
+      const isSignedIn = !!this.supabase.session?.user
+
+      if (!isSignedIn) {
+        this.router.navigate(['/auth'])
+        resolve(false);
+      }
+
+      resolve(true);
+    }, 500));
   }
 }

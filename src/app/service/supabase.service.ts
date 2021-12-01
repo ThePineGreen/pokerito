@@ -4,6 +4,8 @@ import { SupabaseQueryBuilder } from "@supabase/supabase-js/dist/main/lib/Supaba
 import { SupabaseRealtimeClient } from "@supabase/supabase-js/dist/main/lib/SupabaseRealtimeClient";
 import { BehaviorSubject } from "rxjs";
 import { environment } from "src/environments/environment";
+import { TablesEnum } from "../common/tables.enum";
+import { LoginData } from "../models/supabase.model";
 
 @Injectable({
   providedIn: 'root'
@@ -44,7 +46,7 @@ export class SupabaseService {
     }
   }
 
-  public getTable(tableName: string): SupabaseQueryBuilder<any> {
+  public getTable(tableName: TablesEnum | string): SupabaseQueryBuilder<any> {
     return this.supabase.from(tableName);
   }
 
@@ -52,7 +54,7 @@ export class SupabaseService {
     return this.supabase.auth.onAuthStateChange(callback);
   }
 
-  public signInWithGithub(): any {
+  public signInWithGithub(): Promise<LoginData> {
     return this.supabase.auth.signIn({
       provider: 'github',
     });

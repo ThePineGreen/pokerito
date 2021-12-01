@@ -16,6 +16,7 @@ import { LoginComponent } from './components/login/login.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RoomService } from './service/room.service';
 import { RoomCardComponent } from './components/room-card/room-card.component';
+import { ProfileComponent } from './components/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { RoomCardComponent } from './components/room-card/room-card.component';
     NotificationComponent,
     LoginComponent,
     RoomCardComponent,
+    ProfileComponent,
   ],
   imports: [
     BrowserModule,

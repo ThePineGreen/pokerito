@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { Room } from 'src/app/models/room.model';
 import { RoomService } from 'src/app/service/room.service';
 import { SupabaseService } from 'src/app/service/supabase.service';
+import { UserService } from 'src/app/service/user.service';
 import { v4 as uuidv4 } from 'uuid';
 
 @Component({
@@ -13,7 +14,7 @@ import { v4 as uuidv4 } from 'uuid';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit, OnDestroy {
+export class HomeComponent implements OnInit {
 
   isPopupVisible = false;
   isPopupNeeded = true;
@@ -23,14 +24,18 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   constructor(private readonly supabase: SupabaseService,
     private modalService: NgbModal,
+    private userService: UserService,
     private roomService: RoomService,
     private router: Router) { }
 
-  ngOnDestroy(): void {
-    this.roomService.unsubscribe();
-  }
-
   public async ngOnInit(): Promise<void> {
+
+    await this.userService.isNewUser().then(async (value: boolean) => {
+      if (value) {
+        await this.userService.setUserData();
+      }
+    });
+
     this.formGroup = new FormGroup({
       name: new FormControl(null, null),
     });

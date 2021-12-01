@@ -5,9 +5,7 @@
       *ngIf="{rooms: rooms | async} as observables">
       <ng-container *ngFor="let room of observables.rooms">
         <div class="col">
-          <app-room-card [room]="room"
-                          (deleteRoom)="onDeleteRoom($event)"
-          ></app-room-card>
+          <app-room-card [room]="room" (deleteRoom)="onDeleteRoom($event)"></app-room-card>
         </div>
       </ng-container>
       <div class="col" *ngIf="observables.rooms?.length < 4">

@@ -5,9 +5,8 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Observable } from 'rxjs';
 import { Room } from 'src/app/models/room.model';
 import { RoomService } from 'src/app/service/room.service';
-import { SupabaseService } from 'src/app/service/supabase.service';
 import { UserService } from 'src/app/service/user.service';
-import { v4 as uuidv4 } from 'uuid';
+import { RoomsQuery } from 'src/app/store/rooms.query';
 
 @Component({
   selector: 'app-home',
@@ -18,13 +17,12 @@ export class HomeComponent implements OnInit {
 
   isPopupVisible = false;
   isPopupNeeded = true;
-  uiid: string;
-  rooms: Observable<Room[]> = this.roomService.rooms;
+  rooms$: Observable<Room[]> = this.roomsQuery.rooms$;
   formGroup: FormGroup;
 
-  constructor(private readonly supabase: SupabaseService,
-    private modalService: NgbModal,
+  constructor(private modalService: NgbModal,
     private userService: UserService,
+    private roomsQuery: RoomsQuery,
     private roomService: RoomService,
     private router: Router) { }
 
@@ -43,7 +41,6 @@ export class HomeComponent implements OnInit {
     if (sessionStorage.getItem('name')) {
       this.isPopupNeeded = false;
     }
-    this.uiid = uuidv4();
 
     this.roomService.getRoomsByUser();
     this.roomService.handleRoomsChanged();

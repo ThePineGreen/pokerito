@@ -2,7 +2,7 @@
   <div class="container px-4 py-5">
     <h2 class="pb-2 text-charcoal">My Rooms</h2>
     <div class="row row-cols-1 row-cols-lg-4 align-items-stretch g-4 pb-5 pt-4"
-      *ngIf="{rooms: rooms | async} as observables">
+      *ngIf="{rooms: rooms$ | async} as observables">
       <ng-container *ngFor="let room of observables.rooms">
         <div class="col">
           <app-room-card [room]="room" (deleteRoom)="onDeleteRoom($event)"></app-room-card>

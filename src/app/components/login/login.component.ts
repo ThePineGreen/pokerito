@@ -13,6 +13,8 @@ export class LoginComponent implements OnInit {
   constructor(private supabase: SupabaseService,
     private router: Router) { }
 
+  loading: boolean;
+
   ngOnInit(): void {
     if (this.supabase.user) {
       this.router.navigate(['/']);
@@ -21,6 +23,18 @@ export class LoginComponent implements OnInit {
 
   public async githubLogin() {
     await this.supabase.signInWithGithub();
+  }
+
+  public async handleLogin(input: string) {
+    try {
+      this.loading = true;
+      await this.supabase.signIn(input);
+      alert('Check your email for the login link!');
+    } catch (error) {
+      alert(error.error_description || error.message)
+    } finally {
+      this.loading = false;
+    }
   }
 
 }

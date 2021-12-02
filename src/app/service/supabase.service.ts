@@ -60,6 +60,10 @@ export class SupabaseService {
     });
   }
 
+  public signIn(email: string) {
+    return this.supabase.auth.signIn({email});
+  }
+
   public async signOut(): Promise<{ error }> {
     return this.supabase.auth.signOut();
   }

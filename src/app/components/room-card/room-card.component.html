@@ -1,14 +1,25 @@
-<div class="room-card d-flex flex-row align-items-center">
-  <div class="d-flex flex-row flex-fill">
-    <div class="d-flex flex-column">
-      <a href="\room\{{room.id}}" class="text-charcoal h2">{{room.name}}</a>
-      <p class="text-charcoal">{{room.created_at | date}}</p>
+<div class="room-card d-flex flex-row align-items-center justify-content-center">
+  <ng-container *ngIf="!isCreate; else emptyCard">
+    <div class="d-flex flex-row flex-fill">
+      <div class="d-flex flex-column">
+        <a href="\room\{{room.id}}" class="text-charcoal h2">{{room.name}}</a>
+        <p class="text-charcoal">{{room.created_at | date}}</p>
+      </div>
     </div>
-  </div>
-  <div class="delete-icon" (click)="onDeleteClick()">
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+  </ng-container>
+  <div *ngIf="!isCreate" class="delete-icon" (click)="onDeleteClick()">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"
+      stroke="currentColor">
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
         d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
     </svg>
   </div>
 </div>
+
+<ng-template #emptyCard>
+  <div class="d-flex flex-column">
+    <button class="btn btn-primary" (click)="onCreateRoomClick()">
+      Create a new room
+    </button>
+  </div>
+</ng-template>

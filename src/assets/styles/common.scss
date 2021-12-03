@@ -1,9 +1,5 @@
 @import "variables";
 
-a {
-  color: $hookers;
-}
-
 .body-height {
   min-height: calc(100vh - 56px);
 }
@@ -42,33 +38,6 @@ a {
   color: $charcoal;
 }
 
-.form-control-input {
-  color: $charcoal;
-  background-color: $ash;
-
-  &::placeholder {
-    color: $charcoal-light;
-  }
-
-  &:focus {
-    border-color: $dark-sea;
-    box-shadow: 0 0 0 0.25rem $hookers-lighter;
-  }
-}
-
-.form-select {
-  background-color: $ash;
-  color: $charcoal;
-
-  &::placeholder {
-    color: $charcoal-light;
-  }
-
-  &:focus {
-    border-color: $dark-sea;
-    box-shadow: 0 0 0 0.25rem $hookers-lighter;
-  }
-}
 
 .flex-auto {
   flex: 1 1 auto;

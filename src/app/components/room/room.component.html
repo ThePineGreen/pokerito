@@ -1,76 +1,45 @@
-<ng-container *ngIf="isNameExist; else nameTemplate">
-  <div class="body-height d-flex flex-column align-content-between position-relative">
-    <div class="container flex-auto d-flex justify-content-center">
-      <div class="row flex-column py-4 w-100 justify-content-between">
-        <div class="d-flex flex-auto align-items-center">
-          <div class="col-10 d-flex flex-auto flex-wrap overflow-auto justify-content-center her"
-               [class._results]="isResultShown"
-          >
-            <ng-container *ngFor="let user of users">
-              <div *ngIf="user.connected"
-                   class="player-card--container d-flex flex-none my-3 flex-column text-center align-items-center px-2">
-                <div class="player-card mb-2"
-                     [class._selected__player]="!isResultShown && user.card">
-                  <span class="player-card--value" [class.invisible]="!isResultShown">{{user?.card?.value}}</span>
-                </div>
-                <span class="player-name">{{user.username}}</span>
+<div class="body-height d-flex flex-column align-content-between position-relative">
+  <div class="container flex-auto d-flex justify-content-center">
+    <div class="row flex-column py-4 w-100 justify-content-between">
+      <div class="d-flex flex-auto align-items-center">
+        <div class="col-10 d-flex flex-auto flex-wrap overflow-auto justify-content-center her"
+          [class._results]="isResultShown">
+          <ng-container *ngFor="let user of users">
+            <div class="player-card--container d-flex flex-none my-3 flex-column text-center align-items-center px-2">
+              <div class="player-card mb-2" [class._selected__player]="!isResultShown && user.card">
+                <span class="player-card--value" [class.invisible]="!isResultShown">{{user?.card?.value}}</span>
               </div>
-            </ng-container>
-          </div>
-        </div>
-        <div class="col-12 d-flex justify-content-center">
-          <button class="btn btn-dark-sea-green"
-                  [class.d-none]="isResultShown"
-                  *ngIf="isOwner"
-                  (click)="onResultsButtonClick()"
-          >Show cards
-          </button>
-          <button class="btn btn-dark-sea-green align-self-center"
-                  [class.d-none]="!isResultShown"
-                  *ngIf="isOwner"
-                  (click)="onResetRoomClick()"
-          >Start new round
-          </button>
+              <span class="player-name">{{user.name}}</span>
+            </div>
+          </ng-container>
         </div>
       </div>
-    </div>
-    <div class="bottom-panel"
-         [class._show]="isResultShown"
-    >
-      <div class="container d-flex flex-column align-items-center">
-        <div class="row py-5 w-100" *ngIf="!isResultShown" @hideCards>
-          <div class="col-12 d-flex flex-row justify-content-between">
-            <ng-container *ngFor="let card of cardDeck">
-              <div class="player-card _selectable" [class._selected]="card.isSelected" (click)="onCardClick(card)">
-                <span class="player-card--value lead" [class._label]="isTextLabels">{{card.label}}</span>
-              </div>
-            </ng-container>
-          </div>
-        </div>
-      </div>
-      <div class="container d-flex flex-column align-items-center">
-        <app-result *ngIf="isResultShown"
-                    @groupTickets
-                    [isResultShown]="isResultShown"
-                    [estimate]="result?.resultSumm"
-        ></app-result>
-      </div>
-    </div>
-    <app-notification [(visible)]="isNotificationShowed"
-                      *ngIf="isNotificationShowed"
-    ></app-notification>
-  </div>
-</ng-container>
-
-<ng-template #nameTemplate>
-  <div class="container d-flex flex-column justify-content-center body-height">
-    <div class="row">
-      <div class="col-6 offset-3">
-        <label class="form-label text-charcoal">Name</label>
-        <input #nameInput class="form-control form-control-input mb-3" (keyup.enter)="onContinueClick(nameInput)"
-               type="text" placeholder="Bon Jovi">
-        <button type="button" (click)="onContinueClick(nameInput)" class="btn btn-dark-sea-green">Continue</button>
+      <div class="col-12 d-flex justify-content-center">
+        <button class="btn btn-dark-sea-green" [class.d-none]="isResultShown" *ngIf="isOwner"
+          (click)="onResultsButtonClick()">Show cards
+        </button>
+        <button class="btn btn-dark-sea-green align-self-center" [class.d-none]="!isResultShown" *ngIf="isOwner"
+          (click)="onResetRoomClick()">Start new round
+        </button>
       </div>
     </div>
   </div>
-</ng-template>
+  <div class="bottom-panel" [class._show]="isResultShown">
+    <div class="container d-flex flex-column align-items-center">
+      <div class="row py-5 w-100" *ngIf="!isResultShown" @hideCards>
+        <div class="col-12 d-flex flex-row justify-content-between">
+          <ng-container *ngFor="let card of cardDeck">
+            <div class="player-card _selectable" [class._selected]="card.isSelected" (click)="onCardClick(card)">
+              <span class="player-card--value lead" [class._label]="isTextLabels">{{card.label}}</span>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+    <div class="container d-flex flex-column align-items-center">
+      <app-result *ngIf="isResultShown" @groupTickets [isResultShown]="isResultShown" [estimate]="result?.resultSumm">
+      </app-result>
+    </div>
+  </div>
+  <!-- <app-notification [(visible)]="isNotificationShowed" *ngIf="isNotificationShowed"></app-notification> -->
+  </div>

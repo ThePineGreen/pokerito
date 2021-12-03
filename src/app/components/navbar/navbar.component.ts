@@ -1,5 +1,8 @@
-import {Component, OnInit} from '@angular/core';
-import {NavbarService} from '../../service/navbar.service';
+import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Session } from '@supabase/gotrue-js';
+import { SupabaseService } from 'src/app/service/supabase.service';
+import { NavbarService } from '../../service/navbar.service';
 
 @Component({
   selector: 'app-navbar',
@@ -9,11 +12,25 @@ import {NavbarService} from '../../service/navbar.service';
 export class NavbarComponent implements OnInit {
   isSettingsVisible: boolean;
 
-  constructor(public navbarService: NavbarService) {
+  @Input()
+  session: Session;
+
+  constructor(public navbarService: NavbarService, public router: Router, private supabase: SupabaseService) {
     this.isSettingsVisible = false;
   }
 
   ngOnInit(): void {
+  }
+
+  public async logout() {
+    await this.supabase.signOut()
+      .then(value => {
+        if (value.error) {
+          console.error(value.error);
+        } else {
+          this.router.navigateByUrl('/auth');
+        }
+      });
   }
 
 }

@@ -1,0 +1,15 @@
+<div class="d-flex flex-column align-items-center g-lg-5 py-5">
+  <div class="col-md-10 col-lg-5">
+    <h4 class="mb-3">Profile Information</h4>
+    <form [formGroup]="formGroup" class="mb-4">
+      <div class="form-group mb-3">
+        <label for="name">User Name</label>
+        <input type="text" id="name" class="form-control" formControlName="name" [value]="user?.name">
+      </div>
+      <button class="btn btn-primary" (click)="updateUser()">Set Name</button>
+    </form>
+    <ngb-alert #selfClosingAlert *ngIf="hasAlert" type="success">
+      Name changed successfully!
+    </ngb-alert>
+  </div>
+</div>

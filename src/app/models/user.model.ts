@@ -5,3 +5,9 @@ export type User = {
   connected: boolean;
   owner: boolean;
 };
+
+export type NewUser = {
+  id: string;
+  name: string;
+  avatar: string;
+};

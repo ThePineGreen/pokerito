@@ -3,10 +3,9 @@
 
 $secondary: $cambridge;
 
-@import '~bootstrap/scss/bootstrap';
-
 body, button, input, optgroup, select, textarea {
   font-family: Nunito, sans-serif;
 }
 
-
+/* Importing Bootstrap SCSS file. */
+@import "~bootstrap/scss/bootstrap";

@@ -1,20 +1,49 @@
 <div class="d-flex flex-column body-height align-content-between">
-  <div class="container flex-grow-1 d-flex align-items-center">
-    <div class="col">
-      <h1 class="display-5 fw-bold text-charcoal">Pokerito</h1>
-      <h4 class="mb-4 text-charcoal">
-        Simple planning poker games.
-      </h4>
-      <button [routerLink]="['/room', uiid]" type="button" class="btn btn-dark-sea-green">Start new game</button>
+  <div class="container px-4 py-5">
+    <h2 class="pb-2 text-charcoal">My Rooms</h2>
+    <div class="row row-cols-1 row-cols-lg-4 align-items-stretch g-4 pb-5 pt-4"
+      *ngIf="{rooms: rooms$ | async} as observables">
+      <ng-container *ngFor="let room of observables.rooms">
+        <div class="col">
+          <app-room-card [room]="room" (deleteRoom)="onDeleteRoom($event)"></app-room-card>
+        </div>
+      </ng-container>
+      <div class="col" *ngIf="observables.rooms?.length < 4">
+        <div class="card card-default">
+          <div class="card-body d-flex flex-column align-items-center justify-content-center">
+            <button class="btn btn-outline-secondary" (click)="open(content)">Create new room</button>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
   <footer class="footer footer-ash py-3 mt-auto">
     <div class="container text-charcoal">
-    <span>
-      <strong>Pokerito</strong> by <a href="https://github.com/ThePineGreen/pokerito">Alexander Vdovenko</a>. The source code is licensed
-      <a href="http://opensource.org/licenses/mit-license.php">MIT</a>.
-    </span>
+      <span>
+        <strong>Pokerito</strong> by <a href="https://github.com/ThePineGreen">Alexander Vdovenko</a>. The
+        source code is licensed
+        <a href="http://opensource.org/licenses/mit-license.php">MIT</a>.
+      </span>
     </div>
   </footer>
 </div>
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title" id="modal-basic-title">Create new room</h5>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="formGroup">
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input id="name" class="form-control" formControlName="name" placeholder="New room">
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="submit" class="btn btn-outline-primary" (click)="onRoomCreate()">Create</button>
+  </div>
+</ng-template>

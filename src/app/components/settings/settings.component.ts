@@ -1,6 +1,5 @@
 import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import {FormControl, FormGroup} from '@angular/forms';
-import {SocketService} from '../../service/socket.service';
 import {User} from '../../models/user.model';
 
 @Component({
@@ -18,7 +17,7 @@ export class SettingsComponent implements OnInit, OnChanges {
   @Input() roomId: string;
   @Output() visibleChange: EventEmitter<boolean> = new EventEmitter();
 
-  constructor(private socketService: SocketService) {
+  constructor() {
   }
 
   ngOnInit(): void {
@@ -39,10 +38,10 @@ export class SettingsComponent implements OnInit, OnChanges {
   }
 
   updateUser(): void {
-    this.socketService.getSocket().emit('update-user', {
-      username: this.formGroup.get('nameInput').value,
-      cardLabels: Number.parseInt(this.formGroup.get('cardLabels').value, 10),
-    });
+    // this.socketService.getSocket().emit('update-user', {
+    //   username: this.formGroup.get('nameInput').value,
+    //   cardLabels: Number.parseInt(this.formGroup.get('cardLabels').value, 10),
+    // });
   }
 
   ngOnChanges(changes: SimpleChanges): void {

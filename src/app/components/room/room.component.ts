@@ -10,7 +10,6 @@ import { environment } from 'src/environments/environment';
 import cards from '../../../assets/cards.json';
 import { PokerCard } from '../../models/PokerCard.model';
 import { NavbarService } from '../../service/navbar.service';
-import { SocketService } from '../../service/socket.service';
 import { slideInCards, slideOutCards } from '../../slide.animation';
 
 @Component({
@@ -51,8 +50,7 @@ export class RoomComponent implements OnInit {
     private roomsQuery: RoomsQuery,
     private roomService: RoomService,
     private cdr: ChangeDetectorRef,
-    private supabase: SupabaseService,
-    private socketService: SocketService) {
+    private supabase: SupabaseService) {
   }
 
   // isNotificationShowed: boolean;

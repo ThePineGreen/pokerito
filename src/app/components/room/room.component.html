@@ -15,10 +15,10 @@
         </div>
       </div>
       <div class="col-12 d-flex justify-content-center">
-        <button class="btn btn-dark-sea-green" [class.d-none]="isResultShown" *ngIf="isOwner"
+        <button class="btn btn-primary btn-poker" [class.d-none]="isResultShown" *ngIf="isOwner"
           (click)="onResultsButtonClick()">Show cards
         </button>
-        <button class="btn btn-dark-sea-green align-self-center" [class.d-none]="!isResultShown" *ngIf="isOwner"
+        <button class="btn btn-primary btn-poker align-self-center" [class.d-none]="!isResultShown" *ngIf="isOwner"
           (click)="onResetRoomClick()">Start new round
         </button>
       </div>

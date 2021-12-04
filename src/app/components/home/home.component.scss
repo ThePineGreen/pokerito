@@ -1,10 +1,13 @@
 @import "../../../assets/styles/common";
 @import "../../../assets/styles/variables";
 
-.footer-ash {
-  background-color: $ash-lighter;
-}
-
 .card-default {
   min-height: 9rem;
+}
+
+.footer-text-color {
+  color: lighten($charcoal, 50%);
+  a {
+    color: lighten($charcoal, 30%);
+  }
 }

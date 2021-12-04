@@ -5,8 +5,8 @@
       <p class="col-lg-10 fs-4 text-charcoal">Simple planning poker games</p>
     </div>
     <div class="col-md-10 mx-auto col-lg-5">
-      <form class="p-4 p-md-5 border rounded-3 bg-light">
-        <button type="button" class="btn btn-secondary btn-lg w-100" (click)="githubLogin()">Continue with
+      <form class="p-4 p-md-5 border rounded-12 bg-light">
+        <button type="button" class="btn btn-primary btn-poker btn-lg w-100" (click)="githubLogin()">Continue with
           GitHub</button>
         <p class="text-center text-charcoal my-4">or</p>
         <div class="form-floating mb-3 text-charcoal">
@@ -14,8 +14,7 @@
             placeholder="test@mail.com">
           <label for='emailInput' class="text-charcoal"> Email adress</label>
         </div>
-        <!-- <button type="button" class="btn btn-lg btn-secondary w-100">Email me a sign in code</button> -->
-        <button type="submit" (click)="handleLogin(emailInput.value)" class="btn btn-lg btn-secondary w-100"
+        <button type="submit" (click)="handleLogin(emailInput.value)" class="btn btn-lg btn-poker btn-primary w-100"
           [disabled]="loading">
           {{loading ? 'Loading' : 'Send magic link'}}
         </button>

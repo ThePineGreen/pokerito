@@ -1,6 +1,6 @@
 <div class="d-flex flex-column body-height align-content-between">
   <div class="container px-4 py-5">
-    <h2 class="pb-2 text-charcoal">My Rooms</h2>
+    <h2 class="pb-2 text-charcoal">My rooms</h2>
     <div class="row row-cols-1 row-cols-lg-4 align-items-stretch g-4 pb-5 pt-4"
       *ngIf="{rooms: rooms$ | async} as observables">
       <ng-container *ngFor="let room of observables.rooms">
@@ -14,10 +14,10 @@
     </div>
   </div>
 
-  <footer class="footer footer-ash py-3 mt-auto">
-    <div class="container text-charcoal">
-      <span>
-        <strong>Pokerito</strong> by <a href="https://github.com/ThePineGreen">Alexander Vdovenko</a>. The
+  <footer class="footer py-5 mt-auto">
+    <div class="container">
+      <span class="footer-text-color">
+        Made by <a href="https://github.com/ThePineGreen">Alexander Vdovenko</a>. The
         source code is licensed
         <a href="http://opensource.org/licenses/mit-license.php">MIT</a>.
       </span>
@@ -34,7 +34,7 @@
   <div class="modal-body">
     <form [formGroup]="formGroup">
       <div class="form-group">
-        <label for="name">Name</label>
+        <label for="name">Room name</label>
         <input id="name" class="form-control" formControlName="name" placeholder="New room">
       </div>
     </form>

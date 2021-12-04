@@ -6,6 +6,20 @@ $hookers: #52796F;
 $dark-sea: #84A98C;
 $ash: #CAD2C5;
 
+$poker: #35654d;
+$poker-50: #e5f9ef;
+$poker-100: #c9e6d8;
+$poker-200: #aad3bf;
+$poker-300: #8ac2a6;
+$poker-400: #6ab08c;
+$poker-500: #519773;
+$poker-600: #3d7559;
+$poker-700: #2b5440;
+$poker-800: #163325;
+$poker-900: #001309;
+
+$primary: $poker-600;
+
 $charcoal-light: lighten($charcoal, 20%);
 $ash-light: rgba($ash, .75);
 $dark-sea-light: rgba($dark-sea, .75);
